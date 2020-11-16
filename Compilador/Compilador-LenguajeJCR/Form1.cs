@@ -76,7 +76,7 @@ namespace Compilador_LenguajeJCR
 
             //for(int i=0; i< ArregloCodigo.Length; i++)
             //{
-                 EDOAC = dt.Rows[0][ArregloCodigo[i]].ToString(); //El resultado de esta consulta es guardado en EDOAC
+                 EDOAC = dt.Rows[0][ArregloCodigo[0]].ToString(); //El resultado de esta consulta es guardado en EDOAC
             //}
 
             //label1.Text = dt.Rows[EDO][ArregloCodigo[0].ToString()].ToString();

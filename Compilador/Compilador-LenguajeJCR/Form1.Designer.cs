@@ -34,6 +34,8 @@
             this.rtxTokens = new System.Windows.Forms.RichTextBox();
             this.btnCargar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.lsbSimbolos = new System.Windows.Forms.ListBox();
+            this.lblSimbolos = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // rtxCodigoFuente
@@ -46,9 +48,9 @@
             // 
             // btnAnalizar
             // 
-            this.btnAnalizar.Location = new System.Drawing.Point(593, 92);
+            this.btnAnalizar.Location = new System.Drawing.Point(641, 75);
             this.btnAnalizar.Name = "btnAnalizar";
-            this.btnAnalizar.Size = new System.Drawing.Size(75, 23);
+            this.btnAnalizar.Size = new System.Drawing.Size(77, 24);
             this.btnAnalizar.TabIndex = 1;
             this.btnAnalizar.Text = "Analizar";
             this.btnAnalizar.UseVisualStyleBackColor = true;
@@ -58,7 +60,7 @@
             // 
             this.lblText.AutoSize = true;
             this.lblText.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblText.Location = new System.Drawing.Point(22, 160);
+            this.lblText.Location = new System.Drawing.Point(12, 191);
             this.lblText.Name = "lblText";
             this.lblText.Size = new System.Drawing.Size(89, 23);
             this.lblText.TabIndex = 2;
@@ -66,7 +68,7 @@
             // 
             // rtxTokens
             // 
-            this.rtxTokens.Location = new System.Drawing.Point(12, 186);
+            this.rtxTokens.Location = new System.Drawing.Point(12, 245);
             this.rtxTokens.Name = "rtxTokens";
             this.rtxTokens.Size = new System.Drawing.Size(523, 138);
             this.rtxTokens.TabIndex = 3;
@@ -74,9 +76,9 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(593, 15);
+            this.btnCargar.Location = new System.Drawing.Point(641, 15);
             this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(75, 39);
+            this.btnCargar.Size = new System.Drawing.Size(77, 41);
             this.btnCargar.TabIndex = 4;
             this.btnCargar.Text = "Cargar Archivo";
             this.btnCargar.UseVisualStyleBackColor = true;
@@ -92,11 +94,31 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "label1";
             // 
+            // lsbSimbolos
+            // 
+            this.lsbSimbolos.FormattingEnabled = true;
+            this.lsbSimbolos.Location = new System.Drawing.Point(608, 245);
+            this.lsbSimbolos.Name = "lsbSimbolos";
+            this.lsbSimbolos.Size = new System.Drawing.Size(171, 134);
+            this.lsbSimbolos.TabIndex = 6;
+            // 
+            // lblSimbolos
+            // 
+            this.lblSimbolos.AutoSize = true;
+            this.lblSimbolos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSimbolos.Location = new System.Drawing.Point(604, 212);
+            this.lblSimbolos.Name = "lblSimbolos";
+            this.lblSimbolos.Size = new System.Drawing.Size(159, 20);
+            this.lblSimbolos.TabIndex = 7;
+            this.lblSimbolos.Text = "Tabla De Simbolos";
+            // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 483);
+            this.Controls.Add(this.lblSimbolos);
+            this.Controls.Add(this.lsbSimbolos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.rtxTokens);
@@ -118,6 +140,8 @@
         private System.Windows.Forms.RichTextBox rtxTokens;
         private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox lsbSimbolos;
+        private System.Windows.Forms.Label lblSimbolos;
     }
 }
 
