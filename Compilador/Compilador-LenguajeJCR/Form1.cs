@@ -38,23 +38,13 @@ namespace Compilador_LenguajeJCR
 
         private void btnAnalizar_Click(object sender, EventArgs e)
         {
-            //string Token;
+            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+            SqlCommand cmd = new SqlCommand();
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA; cnn.Open();
 
-            ////Ciclo que va recorriendo las líneas del código
-            //for (int x = 0; x < rtxCodigoFuente.Lines.Count(); x++)
-            //{
-            //    string cadena = rtxCodigoFuente.Lines[x];
-            //    //Ciclo que va evaluando caracter por caracter de la línea en recorrido.
-            //    for (int y = 0; y < cadena.Length; y++)
-            //    {
-
-            //        //RecorrerMatriz(); 
-
-            //    }
-
-            //}
-
-            //Arreglo de caracteres. 
+            char c1 = 'A';
+            bool Bandera = true;
             string Codigo = rtxCodigoFuente.Text;
             Char[] ArregloCodigo;
              ArregloCodigo = Codigo.ToCharArray();
@@ -63,25 +53,55 @@ namespace Compilador_LenguajeJCR
 
             label1.Text = ArregloCodigo.Length.ToString();
 
-            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-            SqlCommand cmd = new SqlCommand();
-            DataTable dt = new DataTable();
-            SqlDataAdapter sqlDA; cnn.Open();
-            cmd.CommandText = "SELECT " + ArregloCodigo[0].ToString() + " FROM MatrizLyA WHERE EDO = " + EDO;
+            //Metodo para controlar minúsculas, numeros y caracteres especiales. 
+            cmd.CommandText = "SELECT s" + ArregloCodigo[0].ToString() + " FROM MatrizLyA WHERE EDO = " + EDO;
             cmd.CommandType = CommandType.Text;
             cmd.Connection = cnn;
             sqlDA = new SqlDataAdapter(cmd);
             sqlDA.Fill(dt);
             cnn.Close();
 
-            //for(int i=0; i< ArregloCodigo.Length; i++)
-            //{
-                 EDOAC = dt.Rows[0][ArregloCodigo[0]].ToString(); //El resultado de esta consulta es guardado en EDOAC
-            //}
+            for(int i = 0; i < ArregloCodigo.Length; i++)
+            {
+                //Evaluamos espacios en blanco y salto de carro.
 
-            //label1.Text = dt.Rows[EDO][ArregloCodigo[0].ToString()].ToString();
+                for(int L = 1; L <= 26; L++)
+                {
+                    if(ArregloCodigo[i] == c1)
+                    {
+                        EDOAC = Recorrer(ArregloCodigo, EDO, i);
+                        Bandera = false;
+                        break;
+                    }
+                    else
+                    {
+                        c1++;
+                    }
+                }
+                //Aquí termina for de Mayúsculas
+                if (Bandera)
+                {
+                    EDOAC = dt.Rows[EDO]["s" + ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
+                }
+            }
+        }
 
+        public string Recorrer(char [] miArreglo, int intEdo, int indice)
+        {
+            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+            SqlCommand cmd = new SqlCommand();
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA; cnn.Open();
 
+            cmd.CommandText = "SELECT " + miArreglo[indice].ToString() + " FROM MatrizLyA WHERE EDO = " + intEdo;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+            sqlDA = new SqlDataAdapter(cmd);
+            sqlDA.Fill(dt);
+            cnn.Close();
+
+            return dt.Rows[intEdo][miArreglo[indice].ToString()].ToString();
         }
 
     }
