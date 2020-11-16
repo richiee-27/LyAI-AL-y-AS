@@ -1,0 +1,10 @@
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\bin\Debug\Compilador-LenguajeJCR.exe.config
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\bin\Debug\Compilador-LenguajeJCR.exe
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\bin\Debug\Compilador-LenguajeJCR.pdb
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador-LenguajeJCR.csprojAssemblyReference.cache
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador_LenguajeJCR.frmLJCR.resources
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador_LenguajeJCR.Properties.Resources.resources
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador-LenguajeJCR.csproj.GenerateResource.cache
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador-LenguajeJCR.csproj.CoreCompileInputs.cache
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador-LenguajeJCR.exe
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador-LenguajeJCR.pdb

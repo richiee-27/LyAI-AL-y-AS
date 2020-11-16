@@ -32,24 +32,27 @@
             this.btnAnalizar = new System.Windows.Forms.Button();
             this.lblText = new System.Windows.Forms.Label();
             this.rtxTokens = new System.Windows.Forms.RichTextBox();
+            this.btnCargar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // rtxCodigoFuente
             // 
             this.rtxCodigoFuente.Location = new System.Drawing.Point(12, 15);
             this.rtxCodigoFuente.Name = "rtxCodigoFuente";
-            this.rtxCodigoFuente.Size = new System.Drawing.Size(609, 131);
+            this.rtxCodigoFuente.Size = new System.Drawing.Size(523, 131);
             this.rtxCodigoFuente.TabIndex = 0;
             this.rtxCodigoFuente.Text = "";
             // 
             // btnAnalizar
             // 
-            this.btnAnalizar.Location = new System.Drawing.Point(686, 13);
+            this.btnAnalizar.Location = new System.Drawing.Point(593, 92);
             this.btnAnalizar.Name = "btnAnalizar";
             this.btnAnalizar.Size = new System.Drawing.Size(75, 23);
             this.btnAnalizar.TabIndex = 1;
             this.btnAnalizar.Text = "Analizar";
             this.btnAnalizar.UseVisualStyleBackColor = true;
+            this.btnAnalizar.Click += new System.EventHandler(this.btnAnalizar_Click);
             // 
             // lblText
             // 
@@ -65,15 +68,37 @@
             // 
             this.rtxTokens.Location = new System.Drawing.Point(12, 186);
             this.rtxTokens.Name = "rtxTokens";
-            this.rtxTokens.Size = new System.Drawing.Size(609, 138);
+            this.rtxTokens.Size = new System.Drawing.Size(523, 138);
             this.rtxTokens.TabIndex = 3;
             this.rtxTokens.Text = "";
+            // 
+            // btnCargar
+            // 
+            this.btnCargar.Location = new System.Drawing.Point(593, 15);
+            this.btnCargar.Name = "btnCargar";
+            this.btnCargar.Size = new System.Drawing.Size(75, 39);
+            this.btnCargar.TabIndex = 4;
+            this.btnCargar.Text = "Cargar Archivo";
+            this.btnCargar.UseVisualStyleBackColor = true;
+            this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(593, 160);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 24);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "label1";
             // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 483);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.rtxTokens);
             this.Controls.Add(this.lblText);
             this.Controls.Add(this.btnAnalizar);
@@ -91,6 +116,8 @@
         private System.Windows.Forms.Button btnAnalizar;
         private System.Windows.Forms.Label lblText;
         private System.Windows.Forms.RichTextBox rtxTokens;
+        private System.Windows.Forms.Button btnCargar;
+        private System.Windows.Forms.Label label1;
     }
 }
 
