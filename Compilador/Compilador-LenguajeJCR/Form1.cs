@@ -407,6 +407,14 @@ namespace Compilador_LenguajeJCR
             }
         }
 
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            rtxCodigoFuente.Text = "";
+            rtxErrores.Text = "";
+            rtxTokens.Text = "";
+            lsbSimbolos.Items.Clear();
+        }
+
         private void rtxCodigoFuente_VScroll(object sender, EventArgs e)
         {
             LineNumberTextBox.Text = "";

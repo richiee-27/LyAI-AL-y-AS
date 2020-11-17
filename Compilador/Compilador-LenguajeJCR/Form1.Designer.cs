@@ -39,6 +39,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -123,6 +124,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.panel1.Controls.Add(this.btnLimpiar);
             this.panel1.Controls.Add(this.btnCargar);
             this.panel1.Controls.Add(this.btnAnalizar);
             this.panel1.Controls.Add(this.button1);
@@ -160,6 +162,16 @@
             this.rtxErrores.TabIndex = 7;
             this.rtxErrores.Text = "";
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(353, 3);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(91, 27);
+            this.btnLimpiar.TabIndex = 10;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -191,6 +203,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.RichTextBox rtxErrores;
+        private System.Windows.Forms.Button btnLimpiar;
     }
 }
 
