@@ -54,12 +54,12 @@ namespace Compilador_LenguajeJCR
            
 
             //Metodo para controlar minúsculas, numeros y caracteres especiales. 
-            cmd.CommandText = "SELECT s" + ArregloCodigo[0].ToString() + " FROM MatrizLyA WHERE EDO = " + EDO;
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = cnn;
-            sqlDA = new SqlDataAdapter(cmd);
-            sqlDA.Fill(dt);
-            cnn.Close();
+            //cmd.CommandText = "SELECT s" + ArregloCodigo[0].ToString() + " FROM Matriz WHERE EDO = " + EDO;
+            //cmd.CommandType = CommandType.Text;
+            //cmd.Connection = cnn;
+            //sqlDA = new SqlDataAdapter(cmd);
+            //sqlDA.Fill(dt);
+            //cnn.Close();
 
             for(int i = 0; i < ArregloCodigo.Length; i++)
             {
@@ -67,32 +67,41 @@ namespace Compilador_LenguajeJCR
                 {
                     //Evaluamos espacios en blanco y salto de carro.
 
-                    for (int L = 1; L <= 26; L++) //For para saber si el caracter es mayuscula
-                    {
-                        if (ArregloCodigo[i] == c1)//Compara si el caracter actual es una mayuscula
+                    //for (int L = 1; L <= 26; L++) //For para saber si el caracter es mayuscula
+                    //{
+                        if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
                         {
                             EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
                             EDO = int.Parse(EDOAC);// Se guarda el estado actual en la variable EDO (Estado)
                             Bandera = false;
-                            break;
+                            //break;
                         }
-                        else
-                        {
-                            c1++;
-                        }
-                    }
+                    //    else
+                    //    {
+                    //        c1++;
+                    //    }
+                    //}
+
+                    //Bandera = true;
                     //Aquí termina for de Mayúsculas
                     if (Bandera)
                     {
-                        EDOAC = dt.Rows[EDO]["s" + ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
+                        cmd.CommandText = "SELECT s" + ArregloCodigo[i].ToString() + " FROM Matriz WHERE EDO = " + EDO;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = cnn;
+                        sqlDA = new SqlDataAdapter(cmd);
+                        sqlDA.Fill(dt);
+                        EDOAC = dt.Rows[0]["s" + ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
                         EDO = int.Parse(EDOAC);
                     }
+                    Bandera = true;
                 }
                 else
                 {
-                    EDOAC = dt.Rows[EDO]["DEL"].ToString(); //se dirige a la columna DEL para ver a donde ira despues
+
+                    EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
                     EDO = int.Parse(EDOAC); //se guarda en EDO
-                    EDOAC = dt.Rows[EDO]["TOKEN"].ToString();//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
                     // segun sea el caso agregara el salto o el espacio en blanco a la cadena de  tokens
                     if(ArregloCodigo[i].ToString()==" ")
                     {
@@ -105,14 +114,15 @@ namespace Compilador_LenguajeJCR
                 }
                 if (i == ArregloCodigo.Length-1)// ES PARA SABER SI ESTAMOS EN EL FINAL DEL ARREGLO
                 {
-                    EDOAC = dt.Rows[EDO]["DEL"].ToString(); //se dirige a la columna DEL para ver a donde ira despues
+                    EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
                     EDO = int.Parse(EDOAC); //se guarda en EDO
-                    EDOAC = dt.Rows[EDO]["TOKEN"].ToString();//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
                     Tokens = Tokens + EDOAC;
                 
                 }
 
             } rtxTokens.Text = Tokens;
+            cnn.Close();
         }
 
         public string Recorrer(char [] miArreglo, int intEdo, int indice)
@@ -123,15 +133,54 @@ namespace Compilador_LenguajeJCR
             DataTable dt = new DataTable();
             SqlDataAdapter sqlDA; cnn.Open();
 
-            cmd.CommandText = "SELECT " + miArreglo[indice].ToString() + " FROM MatrizLyA WHERE EDO = " + intEdo;
+            cmd.CommandText = "SELECT " + miArreglo[indice].ToString() + " FROM Matriz WHERE EDO = " + intEdo;
             cmd.CommandType = CommandType.Text;
             cmd.Connection = cnn;
             sqlDA = new SqlDataAdapter(cmd);
             sqlDA.Fill(dt);
             cnn.Close();
 
-            return dt.Rows[intEdo][miArreglo[indice].ToString()].ToString();
+            return dt.Rows[0][miArreglo[indice].ToString()].ToString();
         }
+        
+        public string ObtenerDel(int edo)
+        {
+            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+            SqlCommand cmd = new SqlCommand();
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA; cnn.Open();
+
+            cmd.CommandText = "SELECT DEL FROM Matriz WHERE EDO = " + edo;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+            sqlDA = new SqlDataAdapter(cmd);
+            sqlDA.Fill(dt);
+            cnn.Close();
+
+            return dt.Rows[0]["DEL"].ToString();
+        }
+        public string ObtenerToken(int edo)
+        {
+            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+            SqlCommand cmd = new SqlCommand();
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA; cnn.Open();
+
+            cmd.CommandText = "SELECT TOKEN FROM Matriz WHERE EDO = " + edo;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+            sqlDA = new SqlDataAdapter(cmd);
+            sqlDA.Fill(dt);
+            cnn.Close();
+
+            return dt.Rows[0]["TOKEN"].ToString();
+        }
+
+
+
+
 
         //A partir de aqui se coloca para que ponga el numero de linea
         public int getWidth()
