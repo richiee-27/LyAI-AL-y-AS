@@ -67,8 +67,7 @@ namespace Compilador_LenguajeJCR
                 {
                     //Evaluamos espacios en blanco y salto de carro.
 
-                    //for (int L = 1; L <= 26; L++) //For para saber si el caracter es mayuscula
-                    //{
+                  
                         if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
                         {
                             EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
@@ -76,14 +75,8 @@ namespace Compilador_LenguajeJCR
                             Bandera = false;
                             //break;
                         }
-                    //    else
-                    //    {
-                    //        c1++;
-                    //    }
-                    //}
-
-                    //Bandera = true;
-                    //Aquí termina for de Mayúsculas
+                   
+                 
                     if (Bandera)
                     {
                         cmd.CommandText = "SELECT s" + ArregloCodigo[i].ToString() + " FROM Matriz WHERE EDO = " + EDO;
@@ -91,7 +84,7 @@ namespace Compilador_LenguajeJCR
                         cmd.Connection = cnn;
                         sqlDA = new SqlDataAdapter(cmd);
                         sqlDA.Fill(dt);
-                        EDOAC = dt.Rows[0]["s" + ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
+                        EDOAC = dt.Rows[0]["s"+ ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
                         EDO = int.Parse(EDOAC);
                     }
                     Bandera = true;
