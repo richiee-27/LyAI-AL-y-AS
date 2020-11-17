@@ -38,7 +38,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -144,7 +144,7 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.richTextBox1);
+            this.panel3.Controls.Add(this.rtxErrores);
             this.panel3.Controls.Add(this.lsbSimbolos);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 430);
@@ -152,13 +152,13 @@
             this.panel3.Size = new System.Drawing.Size(800, 96);
             this.panel3.TabIndex = 12;
             // 
-            // richTextBox1
+            // rtxErrores
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(3, 12);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(351, 72);
-            this.richTextBox1.TabIndex = 7;
-            this.richTextBox1.Text = "";
+            this.rtxErrores.Location = new System.Drawing.Point(3, 12);
+            this.rtxErrores.Name = "rtxErrores";
+            this.rtxErrores.Size = new System.Drawing.Size(351, 72);
+            this.rtxErrores.TabIndex = 7;
+            this.rtxErrores.Text = "";
             // 
             // frmLJCR
             // 
@@ -190,7 +190,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtxErrores;
     }
 }
 

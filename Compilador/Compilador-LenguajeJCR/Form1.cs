@@ -14,6 +14,10 @@ namespace Compilador_LenguajeJCR
 {
     public partial class frmLJCR : Form
     {
+        string Errors = "";
+        int Linea = 1, CantError = 0;
+        List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
+        int COID = 0;
         public frmLJCR()
         {
             InitializeComponent();
@@ -38,12 +42,6 @@ namespace Compilador_LenguajeJCR
 
         private void btnAnalizar_Click(object sender, EventArgs e)
         {
-            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-            SqlCommand cmd = new SqlCommand();
-            DataTable dt = new DataTable();
-            SqlDataAdapter sqlDA; cnn.Open();
-
-            char c1 = 'A';
             bool Bandera = true;
             string Codigo = rtxCodigoFuente.Text;
             Char[] ArregloCodigo;
@@ -51,15 +49,9 @@ namespace Compilador_LenguajeJCR
             int EDO = 0;
             string EDOAC = ""; //Variable para guardar el estado actual para después guardarlo en EDO y seguir analizando.
             string Tokens = "";
-           
-
-            //Metodo para controlar minúsculas, numeros y caracteres especiales. 
-            //cmd.CommandText = "SELECT s" + ArregloCodigo[0].ToString() + " FROM Matriz WHERE EDO = " + EDO;
-            //cmd.CommandType = CommandType.Text;
-            //cmd.Connection = cnn;
-            //sqlDA = new SqlDataAdapter(cmd);
-            //sqlDA.Fill(dt);
-            //cnn.Close();
+            string Aux = ""; //String para consultar la comilla simple
+            string Simbolo = "";
+         
 
             for(int i = 0; i < ArregloCodigo.Length; i++)
             {
@@ -67,6 +59,7 @@ namespace Compilador_LenguajeJCR
                 {
                     //Evaluamos espacios en blanco y salto de carro.
 
+                    Simbolo = Simbolo + ArregloCodigo[i].ToString();
                   
                         if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
                         {
@@ -79,43 +72,94 @@ namespace Compilador_LenguajeJCR
                  
                     if (Bandera)
                     {
-                        cmd.CommandText = "SELECT s" + ArregloCodigo[i].ToString() + " FROM Matriz WHERE EDO = " + EDO;
-                        cmd.CommandType = CommandType.Text;
-                        cmd.Connection = cnn;
-                        sqlDA = new SqlDataAdapter(cmd);
-                        sqlDA.Fill(dt);
-                        EDOAC = dt.Rows[0]["s"+ ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
+                        //Evalua si en la cadena viene una comilla simple. 
+                        if (ArregloCodigo[i] == (char)39)
+                        {
+                            Aux = "[s ";
+                        }
+                        else
+                        {
+                            Aux = "[s";
+                        }
+                        EDOAC = RecorrerMin(ArregloCodigo, EDO, i,Aux); //El resultado de esta consulta es guardado en EDOAC
                         EDO = int.Parse(EDOAC);
+                          
                     }
                     Bandera = true;
                 }
                 else
                 {
-
-                    EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
-                    EDO = int.Parse(EDOAC); //se guarda en EDO
-                    EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    if (EDO > 257)
+                    {
+                        CantError++;
+                        EDOAC = ObtenerToken(EDO);
+                        ManejarErrores(EDOAC);
+                        Simbolo = "";
+                    }
+                    else
+                    {
+                        EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
+                        EDO = int.Parse(EDOAC); //se guarda en EDO
+                        EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    }
                     // segun sea el caso agregara el salto o el espacio en blanco a la cadena de  tokens
+                    EDO = 0;
                     if(ArregloCodigo[i].ToString()==" ")
                     {
-                        Tokens = Tokens + EDOAC + " ";
+                        if (EDOAC == "IDEN")
+                        {
+                            COID = GuardarSimbolo(Simbolo);
+                            Tokens = Tokens + "ID" + COID + " ";
+                            Simbolo = "";
+                        }
+                        else
+                        {
+                            Tokens = Tokens + EDOAC + " ";
+                        }
                     }
                     if(ArregloCodigo[i].ToString() == "\n")
                     {
-                        Tokens = Tokens + EDOAC + "\n";
+                        if (EDOAC == "IDEN")
+                        {
+                            COID = GuardarSimbolo(Simbolo);
+                            Tokens = Tokens + "ID" + COID + "\n";
+                            Simbolo = "";
+                        }
+                        else
+                        {
+                            Tokens = Tokens + EDOAC + "\n";
+                        }
+                        Linea++;
                     }
+
                 }
                 if (i == ArregloCodigo.Length-1)// ES PARA SABER SI ESTAMOS EN EL FINAL DEL ARREGLO
                 {
-                    EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
-                    EDO = int.Parse(EDOAC); //se guarda en EDO
-                    EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    if (ArregloCodigo[i].ToString() == " " || ArregloCodigo[i].ToString() == "\n")
+                    {
+                        rtxTokens.Text = Tokens;
+                        return;
+
+                    }
+                    if (EDO > 257)
+                    {
+                        CantError++;
+                        EDOAC = ObtenerToken(EDO);
+                        ManejarErrores(EDOAC);
+                    }
+                    else
+                    {
+                        EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
+                        EDO = int.Parse(EDOAC); //se guarda en EDO
+                        EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    }
                     Tokens = Tokens + EDOAC;
+                    EDO = 0;
                 
                 }
 
             } rtxTokens.Text = Tokens;
-            cnn.Close();
+ 
         }
 
         public string Recorrer(char [] miArreglo, int intEdo, int indice)
@@ -171,7 +215,105 @@ namespace Compilador_LenguajeJCR
             return dt.Rows[0]["TOKEN"].ToString();
         }
 
+        public string RecorrerMin(char [] miArreglo, int intEdo, int indice, string Query)
+        {
+            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+            SqlCommand cmd = new SqlCommand();
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA; cnn.Open();
 
+
+            cmd.CommandText = "SELECT " + Query + miArreglo[indice].ToString() + "]" + " FROM Matriz WHERE EDO = " + intEdo;
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+            sqlDA = new SqlDataAdapter(cmd);
+            sqlDA.Fill(dt);
+            cnn.Close();
+            
+            if(Query == "[s ")
+            return dt.Rows[0]["s " +miArreglo[indice].ToString()].ToString();
+            else
+            return dt.Rows[0]["s" + miArreglo[indice].ToString()].ToString();
+
+        }
+
+        public int GuardarSimbolo(string SBL)
+        {
+            clsSimbolo miSimbolo = new clsSimbolo();
+            miSimbolo.Numero = COID;
+            miSimbolo.Nombre = SBL;
+            if(lst.Count == 0)
+            {
+                lst.Add(miSimbolo);
+                lsbSimbolos.Items.Add(miSimbolo.ToString());
+            }
+            else
+            {
+                    foreach(clsSimbolo miSBL in lst)
+                    {
+                      if(miSBL.Equals(miSimbolo))
+                        {
+                            return miSBL.Numero;
+                        }
+                    }
+            }
+            lst.Add(miSimbolo);
+            lsbSimbolos.Items.Clear();
+            foreach(clsSimbolo miSBL in lst)
+            {
+                lsbSimbolos.Items.Add(miSBL.ToString());
+            }
+            return miSimbolo.Numero;
+            
+        }
+
+        public void ManejarErrores(string error)
+        {
+            switch (error)
+            {
+                case "ERPR":
+                    Errors = Errors + "ERROR DE PALABRA RESERVADA EN LA LINEA: " + Linea + "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "ERID":
+                    Errors = Errors + "ERROR DE IDENTIFICADOR EN LA LINEA: " + Linea + "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "EROL":
+                    Errors = Errors + "ERROR DE OPERADOR LÓGICO EN LA LINEA: " + Linea +  "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "EROA":
+                    Errors = Errors + "ERROR DE OPERADOR ARITMETICO EN LA LINEA: " + Linea + "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "EROR":
+                    Errors = Errors + "ERROR DE OPERADOR RELACIONAL EN LA LINEA: " + Linea + "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "ERCA":
+                    Errors = Errors + "ERROR DE CADENA EN LA LINEA: " + Linea + "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "ERCE":
+                    Errors = Errors + "ERROR DE CARÁCTER EN LA LINEA: " + Linea +  "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "ERCO":
+                    Errors = Errors + "ERROR DE CONSTANTE EN LA LINEA: " + Linea +  "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "ERCM":
+                    Errors = Errors + "ERROR DE COMENTARIO EN LA LINEA: " + Linea + "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+                case "ERDE":
+                    Errors = Errors + "ERROR DEL DELIMITANTE EN LA LINEA: " + Linea +  "\n";
+                    rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
+                    break;
+            }
+        }
 
 
 
