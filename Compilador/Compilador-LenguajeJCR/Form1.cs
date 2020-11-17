@@ -50,7 +50,7 @@ namespace Compilador_LenguajeJCR
              ArregloCodigo = Codigo.ToCharArray();
             int EDO = 0;
             string EDOAC = ""; //Variable para guardar el estado actual para después guardarlo en EDO y seguir analizando.
-
+            string Tokens = "";
            
 
             //Metodo para controlar minúsculas, numeros y caracteres especiales. 
@@ -63,26 +63,55 @@ namespace Compilador_LenguajeJCR
 
             for(int i = 0; i < ArregloCodigo.Length; i++)
             {
-                //Evaluamos espacios en blanco y salto de carro.
+                if(ArregloCodigo[i].ToString() != " " && ArregloCodigo[i].ToString() != "\n") 
+                {
+                    //Evaluamos espacios en blanco y salto de carro.
 
-                for(int L = 1; L <= 26; L++)
-                {
-                    if(ArregloCodigo[i] == c1)
+                    for (int L = 1; L <= 26; L++) //For para saber si el caracter es mayuscula
                     {
-                        EDOAC = Recorrer(ArregloCodigo, EDO, i);
-                        Bandera = false;
-                        break;
+                        if (ArregloCodigo[i] == c1)//Compara si el caracter actual es una mayuscula
+                        {
+                            EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
+                            EDO = int.Parse(EDOAC);// Se guarda el estado actual en la variable EDO (Estado)
+                            Bandera = false;
+                            break;
+                        }
+                        else
+                        {
+                            c1++;
+                        }
                     }
-                    else
+                    //Aquí termina for de Mayúsculas
+                    if (Bandera)
                     {
-                        c1++;
+                        EDOAC = dt.Rows[EDO]["s" + ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
+                        EDO = int.Parse(EDOAC);
                     }
                 }
-                //Aquí termina for de Mayúsculas
-                if (Bandera)
+                else
                 {
-                    EDOAC = dt.Rows[EDO]["s" + ArregloCodigo[i].ToString()].ToString(); //El resultado de esta consulta es guardado en EDOAC
+                    EDOAC = dt.Rows[EDO]["DEL"].ToString(); //se dirige a la columna DEL para ver a donde ira despues
+                    EDO = int.Parse(EDOAC); //se guarda en EDO
+                    EDOAC = dt.Rows[EDO]["TOKEN"].ToString();//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    // segun sea el caso agregara el salto o el espacio en blanco a la cadena de  tokens
+                    if(ArregloCodigo[i].ToString()==" ")
+                    {
+                        Tokens = Tokens + EDOAC + " ";
+                    }
+                    if(ArregloCodigo[i].ToString() == "\n")
+                    {
+                        Tokens = Tokens + EDOAC + "\n";
+                    }
                 }
+                if (i == ArregloCodigo.Length-1)// ES PARA SABER SI ESTAMOS EN EL FINAL DEL ARREGLO
+                {
+                    EDOAC = dt.Rows[EDO]["DEL"].ToString(); //se dirige a la columna DEL para ver a donde ira despues
+                    EDO = int.Parse(EDOAC); //se guarda en EDO
+                    EDOAC = dt.Rows[EDO]["TOKEN"].ToString();//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                    Tokens = Tokens + EDOAC;
+                
+                }
+
             }
         }
 
