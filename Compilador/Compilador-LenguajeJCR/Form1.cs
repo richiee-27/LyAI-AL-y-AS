@@ -112,7 +112,7 @@ namespace Compilador_LenguajeJCR
                 
                 }
 
-            }
+            } rtxTokens.Text = Tokens;
         }
 
         public string Recorrer(char [] miArreglo, int intEdo, int indice)
