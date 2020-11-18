@@ -52,6 +52,9 @@ namespace Compilador_LenguajeJCR
             string Tokens = "";
             string Aux = ""; //String para consultar la comilla simple
             string Simbolo = "";
+            lst.Clear();
+            rtxErrores.Text = "";
+            CantError = 0;
          
 
             for(int i = 0; i < ArregloCodigo.Length; i++)
@@ -103,37 +106,59 @@ namespace Compilador_LenguajeJCR
                     else
                     {
                         EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
-                        EDO = int.Parse(EDOAC); //se guarda en EDO
-                        EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                        if (EDOAC != "")
+                        {
+                            EDO = int.Parse(EDOAC); //se guarda en EDO
+                            EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                        }
                     }
                     // segun sea el caso agregara el salto o el espacio en blanco a la cadena de  tokens
                     EDO = 0;
-                    if(ArregloCodigo[i].ToString()==" ")
+                    if (EDOAC != "")
                     {
-                        if (EDOAC == "IDEN")
+                        if (ArregloCodigo[i].ToString() == " ")
                         {
-                            ID = GuardarSimbolo(Simbolo);
-                            Tokens = Tokens + "ID" + ID + " ";
-                            Simbolo = "";
+                            if (EDOAC == "IDEN")
+                            {
+                                ID = GuardarSimbolo(Simbolo);
+                                Tokens = Tokens + "ID" + ID + " ";
+                                Simbolo = "";
+                            }
+                            else
+                            {
+                                Simbolo = "";
+                                Tokens = Tokens + EDOAC + " ";
+                            }
                         }
-                        else
+                        if (ArregloCodigo[i].ToString() == "\n")
                         {
-                            Tokens = Tokens + EDOAC + " ";
+                            if (EDOAC == "IDEN")
+                            {
+                                ID = GuardarSimbolo(Simbolo);
+                                Tokens = Tokens + "ID" + ID + "\n";
+                                Simbolo = "";
+                            }
+                            else
+                            {
+                                Simbolo = "";
+                                Tokens = Tokens + EDOAC + "\n";
+                            }
+                            Linea++;
                         }
                     }
-                    if(ArregloCodigo[i].ToString() == "\n")
+                    else
                     {
-                        if (EDOAC == "IDEN")
+                        if(ArregloCodigo[i].ToString() == " ")
                         {
-                            ID = GuardarSimbolo(Simbolo);
-                            Tokens = Tokens + "ID" + ID + "\n";
                             Simbolo = "";
+                            Tokens = Tokens + " "; 
                         }
-                        else
+                        if(ArregloCodigo[i].ToString() == "\n")
                         {
-                            Tokens = Tokens + EDOAC + "\n";
+                            Simbolo = "";
+                            Tokens = Tokens + "\n";
+                            Linea++;
                         }
-                        Linea++;
                     }
 
                 }
@@ -466,6 +491,7 @@ namespace Compilador_LenguajeJCR
             rtxErrores.Text = "";
             rtxTokens.Text = "";
             lsbSimbolos.Items.Clear();
+            lst.Clear();
         }
     }
 }
