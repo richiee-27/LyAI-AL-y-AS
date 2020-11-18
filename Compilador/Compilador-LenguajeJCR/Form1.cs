@@ -18,6 +18,7 @@ namespace Compilador_LenguajeJCR
         int Linea = 1, CantError = 0;
         List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
         int COID = 0;
+        int ID = 0;
         public frmLJCR()
         {
             InitializeComponent();
@@ -59,11 +60,12 @@ namespace Compilador_LenguajeJCR
                 {
                     //Evaluamos espacios en blanco y salto de carro.
                     
+
                         if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
                         {
                             EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
                             EDO = int.Parse(EDOAC);// Se guarda el estado actual en la variable EDO (Estado)
-                        Simbolo = ArregloCodigo[i].ToString();
+                            Simbolo = Simbolo + ArregloCodigo[i].ToString();
                             Bandera = false;
                             //break;
                         }
@@ -84,10 +86,8 @@ namespace Compilador_LenguajeJCR
                         EDO = int.Parse(EDOAC);
 
                         //Si el estado es 239 se trata de un identificador por lo cuál va ir concatenando.
-                        if(EDO == 239)
-                        {
                             Simbolo = Simbolo + ArregloCodigo[i].ToString();
-                        }
+                        
                     }
                     Bandera = true;
                 }
@@ -112,8 +112,8 @@ namespace Compilador_LenguajeJCR
                     {
                         if (EDOAC == "IDEN")
                         {
-                            COID = GuardarSimbolo(Simbolo);
-                            Tokens = Tokens + "ID" + COID + " ";
+                            ID = GuardarSimbolo(Simbolo);
+                            Tokens = Tokens + "ID" + ID + " ";
                             Simbolo = "";
                         }
                         else
@@ -125,8 +125,8 @@ namespace Compilador_LenguajeJCR
                     {
                         if (EDOAC == "IDEN")
                         {
-                            COID = GuardarSimbolo(Simbolo);
-                            Tokens = Tokens + "ID" + COID + "\n";
+                            ID = GuardarSimbolo(Simbolo);
+                            Tokens = Tokens + "ID" + ID + "\n";
                             Simbolo = "";
                         }
                         else
@@ -157,7 +157,17 @@ namespace Compilador_LenguajeJCR
                         EDO = int.Parse(EDOAC); //se guarda en EDO
                         EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
                     }
-                    Tokens = Tokens + EDOAC;
+
+                    if (EDOAC == "IDEN")
+                    {
+                        ID = GuardarSimbolo(Simbolo);
+                        Tokens = Tokens + "ID" + ID;
+                        Simbolo = "";
+                    }
+                    else
+                    {
+                        Tokens = Tokens + EDOAC;
+                    }
                     EDO = 0;
                 
                 }
@@ -251,6 +261,8 @@ namespace Compilador_LenguajeJCR
             {
                 lst.Add(miSimbolo);
                 lsbSimbolos.Items.Add(miSimbolo.ToString());
+                COID++;
+                return miSimbolo.Numero;
             }
             else
             {
@@ -262,12 +274,15 @@ namespace Compilador_LenguajeJCR
                         }
                     }
             }
+
             lst.Add(miSimbolo);
             lsbSimbolos.Items.Clear();
             foreach(clsSimbolo miSBL in lst)
             {
                 lsbSimbolos.Items.Add(miSBL.ToString());
+
             }
+            COID++;
             return miSimbolo.Numero;
             
         }
