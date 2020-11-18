@@ -58,13 +58,12 @@ namespace Compilador_LenguajeJCR
                 if(ArregloCodigo[i].ToString() != " " && ArregloCodigo[i].ToString() != "\n") 
                 {
                     //Evaluamos espacios en blanco y salto de carro.
-
-                    Simbolo = Simbolo + ArregloCodigo[i].ToString();
-                  
+                    
                         if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
                         {
                             EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
                             EDO = int.Parse(EDOAC);// Se guarda el estado actual en la variable EDO (Estado)
+                        Simbolo = ArregloCodigo[i].ToString();
                             Bandera = false;
                             //break;
                         }
@@ -83,7 +82,12 @@ namespace Compilador_LenguajeJCR
                         }
                         EDOAC = RecorrerMin(ArregloCodigo, EDO, i,Aux); //El resultado de esta consulta es guardado en EDOAC
                         EDO = int.Parse(EDOAC);
-                          
+
+                        //Si el estado es 239 se trata de un identificador por lo cuál va ir concatenando.
+                        if(EDO == 239)
+                        {
+                            Simbolo = Simbolo + ArregloCodigo[i].ToString();
+                        }
                     }
                     Bandera = true;
                 }
@@ -409,10 +413,29 @@ namespace Compilador_LenguajeJCR
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            rtxCodigoFuente.Text = "";
-            rtxErrores.Text = "";
-            rtxTokens.Text = "";
-            lsbSimbolos.Items.Clear();
+            LimpiarDatos();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.InitialDirectory = @"C:\";
+            sfd.RestoreDirectory = true;
+            sfd.FileName = "*.txt";
+            sfd.DefaultExt = "txt";
+            sfd.Filter = "txt files (*.txt) | *.txt";
+            
+            if(sfd.ShowDialog() == DialogResult.OK)
+            {
+                Stream filestream = sfd.OpenFile();
+                StreamWriter sw = new StreamWriter(filestream);
+
+                sw.Write(rtxCodigoFuente.Text);
+                sw.Close();
+                filestream.Close();
+
+                LimpiarDatos();
+            }
         }
 
         private void rtxCodigoFuente_VScroll(object sender, EventArgs e)
@@ -420,6 +443,14 @@ namespace Compilador_LenguajeJCR
             LineNumberTextBox.Text = "";
             AddLineNumbers();
             LineNumberTextBox.Invalidate();
+        }
+
+        public void LimpiarDatos()
+        {
+            rtxCodigoFuente.Text = "";
+            rtxErrores.Text = "";
+            rtxTokens.Text = "";
+            lsbSimbolos.Items.Clear();
         }
     }
 }

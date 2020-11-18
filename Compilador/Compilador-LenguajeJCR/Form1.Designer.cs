@@ -36,10 +36,12 @@
             this.LineNumberTextBox = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
-            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.lblErrores = new System.Windows.Forms.Label();
+            this.lblListaSim = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -92,9 +94,9 @@
             // lsbSimbolos
             // 
             this.lsbSimbolos.FormattingEnabled = true;
-            this.lsbSimbolos.Location = new System.Drawing.Point(376, 1);
+            this.lsbSimbolos.Location = new System.Drawing.Point(376, 34);
             this.lsbSimbolos.Name = "lsbSimbolos";
-            this.lsbSimbolos.Size = new System.Drawing.Size(305, 95);
+            this.lsbSimbolos.Size = new System.Drawing.Size(305, 82);
             this.lsbSimbolos.TabIndex = 6;
             // 
             // LineNumberTextBox
@@ -120,6 +122,7 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "Guardar archivo";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel1
             // 
@@ -134,6 +137,16 @@
             this.panel1.Size = new System.Drawing.Size(800, 33);
             this.panel1.TabIndex = 10;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(353, 3);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(91, 27);
+            this.btnLimpiar.TabIndex = 10;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.rtxTokens);
@@ -146,37 +159,47 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.lblListaSim);
+            this.panel3.Controls.Add(this.lblErrores);
             this.panel3.Controls.Add(this.rtxErrores);
             this.panel3.Controls.Add(this.lsbSimbolos);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 430);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(800, 96);
+            this.panel3.Size = new System.Drawing.Size(800, 128);
             this.panel3.TabIndex = 12;
             // 
             // rtxErrores
             // 
-            this.rtxErrores.Location = new System.Drawing.Point(3, 12);
+            this.rtxErrores.Location = new System.Drawing.Point(12, 35);
             this.rtxErrores.Name = "rtxErrores";
-            this.rtxErrores.Size = new System.Drawing.Size(351, 72);
+            this.rtxErrores.Size = new System.Drawing.Size(351, 81);
             this.rtxErrores.TabIndex = 7;
             this.rtxErrores.Text = "";
             // 
-            // btnLimpiar
+            // lblErrores
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(353, 3);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(91, 27);
-            this.btnLimpiar.TabIndex = 10;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.lblErrores.AutoSize = true;
+            this.lblErrores.Location = new System.Drawing.Point(13, 16);
+            this.lblErrores.Name = "lblErrores";
+            this.lblErrores.Size = new System.Drawing.Size(123, 13);
+            this.lblErrores.TabIndex = 8;
+            this.lblErrores.Text = "ERRORES DE CÓDIGO";
+            // 
+            // lblListaSim
+            // 
+            this.lblListaSim.AutoSize = true;
+            this.lblListaSim.Location = new System.Drawing.Point(376, 15);
+            this.lblListaSim.Name = "lblListaSim";
+            this.lblListaSim.Size = new System.Drawing.Size(113, 13);
+            this.lblListaSim.TabIndex = 9;
+            this.lblListaSim.Text = "LISTA DE SIMBOLOS";
             // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 526);
+            this.ClientSize = new System.Drawing.Size(800, 558);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -186,6 +209,7 @@
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -204,6 +228,8 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.RichTextBox rtxErrores;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Label lblListaSim;
+        private System.Windows.Forms.Label lblErrores;
     }
 }
 
