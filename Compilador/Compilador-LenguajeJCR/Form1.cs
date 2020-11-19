@@ -55,6 +55,7 @@ namespace Compilador_LenguajeJCR
             lst.Clear();
             rtxErrores.Text = "";
             CantError = 0;
+            Linea = 1;
          
 
             for(int i = 0; i < ArregloCodigo.Length; i++)
@@ -88,8 +89,7 @@ namespace Compilador_LenguajeJCR
                         EDOAC = RecorrerMin(ArregloCodigo, EDO, i,Aux); //El resultado de esta consulta es guardado en EDOAC
                         EDO = int.Parse(EDOAC);
 
-                        //Si el estado es 239 se trata de un identificador por lo cuál va ir concatenando.
-                            Simbolo = Simbolo + ArregloCodigo[i].ToString();
+                        Simbolo = Simbolo + ArregloCodigo[i].ToString();
                         
                     }
                     Bandera = true;
@@ -314,6 +314,7 @@ namespace Compilador_LenguajeJCR
 
         public void ManejarErrores(string error)
         {
+            rtxErrores.Text = "";
             switch (error)
             {
                 case "ERPR":

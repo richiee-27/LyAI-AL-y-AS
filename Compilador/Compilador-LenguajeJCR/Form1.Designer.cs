@@ -39,9 +39,9 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.rtxErrores = new System.Windows.Forms.RichTextBox();
-            this.lblErrores = new System.Windows.Forms.Label();
             this.lblListaSim = new System.Windows.Forms.Label();
+            this.lblErrores = new System.Windows.Forms.Label();
+            this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -169,6 +169,26 @@
             this.panel3.Size = new System.Drawing.Size(800, 128);
             this.panel3.TabIndex = 12;
             // 
+            // lblListaSim
+            // 
+            this.lblListaSim.AutoSize = true;
+            this.lblListaSim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListaSim.Location = new System.Drawing.Point(376, 13);
+            this.lblListaSim.Name = "lblListaSim";
+            this.lblListaSim.Size = new System.Drawing.Size(138, 16);
+            this.lblListaSim.TabIndex = 9;
+            this.lblListaSim.Text = "LISTA DE SIMBOLOS";
+            // 
+            // lblErrores
+            // 
+            this.lblErrores.AutoSize = true;
+            this.lblErrores.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblErrores.Location = new System.Drawing.Point(13, 13);
+            this.lblErrores.Name = "lblErrores";
+            this.lblErrores.Size = new System.Drawing.Size(160, 16);
+            this.lblErrores.TabIndex = 8;
+            this.lblErrores.Text = "ERRORES DE SINTAXIS";
+            // 
             // rtxErrores
             // 
             this.rtxErrores.Location = new System.Drawing.Point(12, 35);
@@ -176,24 +196,6 @@
             this.rtxErrores.Size = new System.Drawing.Size(351, 81);
             this.rtxErrores.TabIndex = 7;
             this.rtxErrores.Text = "";
-            // 
-            // lblErrores
-            // 
-            this.lblErrores.AutoSize = true;
-            this.lblErrores.Location = new System.Drawing.Point(13, 16);
-            this.lblErrores.Name = "lblErrores";
-            this.lblErrores.Size = new System.Drawing.Size(123, 13);
-            this.lblErrores.TabIndex = 8;
-            this.lblErrores.Text = "ERRORES DE CÓDIGO";
-            // 
-            // lblListaSim
-            // 
-            this.lblListaSim.AutoSize = true;
-            this.lblListaSim.Location = new System.Drawing.Point(376, 15);
-            this.lblListaSim.Name = "lblListaSim";
-            this.lblListaSim.Size = new System.Drawing.Size(113, 13);
-            this.lblListaSim.TabIndex = 9;
-            this.lblListaSim.Text = "LISTA DE SIMBOLOS";
             // 
             // frmLJCR
             // 
