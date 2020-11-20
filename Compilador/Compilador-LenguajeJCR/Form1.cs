@@ -19,6 +19,8 @@ namespace Compilador_LenguajeJCR
         List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
         int COID = 0;
         int ID = 0;
+        List<String> lstErrores = new List<string>();
+        string nombreArchivoCodigo = "";
         public frmLJCR()
         {
             InitializeComponent();
@@ -52,10 +54,11 @@ namespace Compilador_LenguajeJCR
             string Tokens = "";
             string Aux = ""; //String para consultar la comilla simple
             string Simbolo = "";
-            lst.Clear();
-            rtxErrores.Text = "";
             CantError = 0;
             Linea = 1;
+            lst.Clear();
+            rtxErrores.Clear();
+            rtxErrores.Update();
          
 
             for(int i = 0; i < ArregloCodigo.Length; i++)
@@ -101,6 +104,7 @@ namespace Compilador_LenguajeJCR
                         CantError++;
                         EDOAC = ObtenerToken(EDO);
                         ManejarErrores(EDOAC);
+                        lstErrores.Add(EDOAC);
                         Simbolo = "";
                     }
                     else
@@ -175,6 +179,7 @@ namespace Compilador_LenguajeJCR
                         CantError++;
                         EDOAC = ObtenerToken(EDO);
                         ManejarErrores(EDOAC);
+                        lstErrores.Add(EDOAC);
                     }
                     else
                     {
@@ -198,7 +203,7 @@ namespace Compilador_LenguajeJCR
                 }
 
             } rtxTokens.Text = Tokens;
- 
+              CambiarColor();
         }
 
         public string Recorrer(char [] miArreglo, int intEdo, int indice)
@@ -360,6 +365,25 @@ namespace Compilador_LenguajeJCR
             }
         }
 
+        public void CambiarColor()
+        {
+            for (int i = 0; i < lstErrores.Count; i++)
+            {
+                int indexOf = 0;
+                while (indexOf != -1)
+                {
+                    indexOf = rtxTokens.Text.IndexOf(lstErrores[i], indexOf);
+
+                    if (indexOf != -1)
+                    {
+                        rtxTokens.Select(indexOf, lstErrores[i].Length);
+                        rtxTokens.SelectionColor = Color.Red;
+                        indexOf += lstErrores[i].Length;
+                    }
+                }
+            }
+        }
+
 
 
         //A partir de aqui se coloca para que ponga el numero de linea
@@ -486,10 +510,73 @@ namespace Compilador_LenguajeJCR
             LineNumberTextBox.Invalidate();
         }
 
+        private void btnTokens_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog guardar = new SaveFileDialog();
+            if (nombreArchivoCodigo != "")
+            {
+                guardar.FileName = nombreArchivoCodigo;
+                guardar.Title = nombreArchivoCodigo;
+                StreamWriter escribir = new StreamWriter(guardar.FileName);
+                foreach (object line in rtxCodigoFuente.Lines)
+                {
+                    escribir.WriteLine(line);
+                }
+                escribir.Close();
+                MessageBox.Show("Archivo modificado con éxito", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+            guardar.Filter = "documento de texto|*.txt";
+            guardar.Title = "GUARDAR";
+            guardar.FileName = "Sin titulo";
+            var resultado = guardar.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                StreamWriter escribir = new StreamWriter(guardar.FileName);
+                foreach (object line in rtxTokens.Lines)
+                {
+                    escribir.WriteLine(line);
+                }
+                escribir.Close();
+            }
+        }
+
+        private void btnSimbolos_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog guardar = new SaveFileDialog();
+            if (nombreArchivoCodigo != "")
+            {
+                guardar.FileName = nombreArchivoCodigo;
+                guardar.Title = nombreArchivoCodigo;
+                StreamWriter escribir = new StreamWriter(guardar.FileName);
+                foreach (object line in rtxCodigoFuente.Lines)
+                {
+                    escribir.WriteLine(line);
+                }
+                escribir.Close();
+                MessageBox.Show("Archivo modificado con éxito", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                return;
+            }
+            guardar.Filter = "documento de texto|*.txt";
+            guardar.Title = "GUARDAR";
+            guardar.FileName = "Sin titulo";
+            var resultado = guardar.ShowDialog();
+            if (resultado == DialogResult.OK)
+            {
+                StreamWriter escribir = new StreamWriter(guardar.FileName);
+                foreach (object line in lsbSimbolos.Items)
+                {
+                    escribir.WriteLine(line);
+                }
+                escribir.Close();
+            }
+        }
+
         public void LimpiarDatos()
         {
             rtxCodigoFuente.Text = "";
-            rtxErrores.Text = "";
+            rtxErrores.Clear();
+            rtxErrores.Update();
             rtxTokens.Text = "";
             lsbSimbolos.Items.Clear();
             lst.Clear();

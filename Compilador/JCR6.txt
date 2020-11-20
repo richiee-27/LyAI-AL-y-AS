@@ -1,0 +1,5 @@
+Inicio {
+Enter+ Suma ;
+Suma = 5 + 1 ;
+Imprime ( Suma ) ; }
+Fin

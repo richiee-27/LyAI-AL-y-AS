@@ -1,0 +1,8 @@
+Inicio {
+Flotante Radio = 0 ;
+Flotante Area = 0 ;
+Leer ( Radio ) ;
+Area = 3.14 * Radio ^ 2 ;
+Imprime ( Area ) ;
+}
+Fin

@@ -42,6 +42,8 @@
             this.lblListaSim = new System.Windows.Forms.Label();
             this.lblErrores = new System.Windows.Forms.Label();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
+            this.btnTokens = new System.Windows.Forms.Button();
+            this.btnSimbolos = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -65,7 +67,7 @@
             // 
             // btnAnalizar
             // 
-            this.btnAnalizar.Location = new System.Drawing.Point(131, 3);
+            this.btnAnalizar.Location = new System.Drawing.Point(116, 3);
             this.btnAnalizar.Name = "btnAnalizar";
             this.btnAnalizar.Size = new System.Drawing.Size(82, 27);
             this.btnAnalizar.TabIndex = 1;
@@ -75,7 +77,8 @@
             // 
             // rtxTokens
             // 
-            this.rtxTokens.Location = new System.Drawing.Point(376, 0);
+            this.rtxTokens.Enabled = false;
+            this.rtxTokens.Location = new System.Drawing.Point(463, -3);
             this.rtxTokens.Name = "rtxTokens";
             this.rtxTokens.Size = new System.Drawing.Size(305, 385);
             this.rtxTokens.TabIndex = 3;
@@ -83,7 +86,7 @@
             // 
             // btnCargar
             // 
-            this.btnCargar.Location = new System.Drawing.Point(27, 3);
+            this.btnCargar.Location = new System.Drawing.Point(12, 3);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(98, 26);
             this.btnCargar.TabIndex = 4;
@@ -93,6 +96,7 @@
             // 
             // lsbSimbolos
             // 
+            this.lsbSimbolos.Enabled = false;
             this.lsbSimbolos.FormattingEnabled = true;
             this.lsbSimbolos.Location = new System.Drawing.Point(376, 34);
             this.lsbSimbolos.Name = "lsbSimbolos";
@@ -116,7 +120,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(229, 3);
+            this.button1.Location = new System.Drawing.Point(214, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(103, 27);
             this.button1.TabIndex = 9;
@@ -127,6 +131,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.panel1.Controls.Add(this.btnTokens);
             this.panel1.Controls.Add(this.btnLimpiar);
             this.panel1.Controls.Add(this.btnCargar);
             this.panel1.Controls.Add(this.btnAnalizar);
@@ -139,7 +144,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(353, 3);
+            this.btnLimpiar.Location = new System.Drawing.Point(323, 3);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(91, 27);
             this.btnLimpiar.TabIndex = 10;
@@ -159,6 +164,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnSimbolos);
             this.panel3.Controls.Add(this.lblListaSim);
             this.panel3.Controls.Add(this.lblErrores);
             this.panel3.Controls.Add(this.rtxErrores);
@@ -191,11 +197,32 @@
             // 
             // rtxErrores
             // 
+            this.rtxErrores.Enabled = false;
             this.rtxErrores.Location = new System.Drawing.Point(12, 35);
             this.rtxErrores.Name = "rtxErrores";
             this.rtxErrores.Size = new System.Drawing.Size(351, 81);
             this.rtxErrores.TabIndex = 7;
             this.rtxErrores.Text = "";
+            // 
+            // btnTokens
+            // 
+            this.btnTokens.Location = new System.Drawing.Point(573, 4);
+            this.btnTokens.Name = "btnTokens";
+            this.btnTokens.Size = new System.Drawing.Size(108, 24);
+            this.btnTokens.TabIndex = 11;
+            this.btnTokens.Text = "Guardar Tokens";
+            this.btnTokens.UseVisualStyleBackColor = true;
+            this.btnTokens.Click += new System.EventHandler(this.btnTokens_Click);
+            // 
+            // btnSimbolos
+            // 
+            this.btnSimbolos.Location = new System.Drawing.Point(704, 48);
+            this.btnSimbolos.Name = "btnSimbolos";
+            this.btnSimbolos.Size = new System.Drawing.Size(75, 39);
+            this.btnSimbolos.TabIndex = 10;
+            this.btnSimbolos.Text = "Guardar Simbolos";
+            this.btnSimbolos.UseVisualStyleBackColor = true;
+            this.btnSimbolos.Click += new System.EventHandler(this.btnSimbolos_Click);
             // 
             // frmLJCR
             // 
@@ -232,6 +259,8 @@
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Label lblListaSim;
         private System.Windows.Forms.Label lblErrores;
+        private System.Windows.Forms.Button btnTokens;
+        private System.Windows.Forms.Button btnSimbolos;
     }
 }
 

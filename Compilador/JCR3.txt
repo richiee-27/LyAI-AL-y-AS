@@ -1,0 +1,8 @@
+Inicio {
+Entero Num1 ;
+Entero Num2 ;
+Entero Sum ;
+Sum = Num1 + Num2 ;
+Imprime { Sum } ;
+}
+Fin
