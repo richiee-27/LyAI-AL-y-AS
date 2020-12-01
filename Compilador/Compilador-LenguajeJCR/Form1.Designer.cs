@@ -36,14 +36,15 @@
             this.LineNumberTextBox = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnTokens = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnSimbolos = new System.Windows.Forms.Button();
             this.lblListaSim = new System.Windows.Forms.Label();
             this.lblErrores = new System.Windows.Forms.Label();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
-            this.btnTokens = new System.Windows.Forms.Button();
-            this.btnSimbolos = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -139,8 +140,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 33);
+            this.panel1.Size = new System.Drawing.Size(1116, 33);
             this.panel1.TabIndex = 10;
+            // 
+            // btnTokens
+            // 
+            this.btnTokens.Location = new System.Drawing.Point(573, 4);
+            this.btnTokens.Name = "btnTokens";
+            this.btnTokens.Size = new System.Drawing.Size(108, 24);
+            this.btnTokens.TabIndex = 11;
+            this.btnTokens.Text = "Guardar Tokens";
+            this.btnTokens.UseVisualStyleBackColor = true;
+            this.btnTokens.Click += new System.EventHandler(this.btnTokens_Click);
             // 
             // btnLimpiar
             // 
@@ -172,8 +183,18 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 430);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(800, 128);
+            this.panel3.Size = new System.Drawing.Size(1116, 128);
             this.panel3.TabIndex = 12;
+            // 
+            // btnSimbolos
+            // 
+            this.btnSimbolos.Location = new System.Drawing.Point(704, 48);
+            this.btnSimbolos.Name = "btnSimbolos";
+            this.btnSimbolos.Size = new System.Drawing.Size(75, 39);
+            this.btnSimbolos.TabIndex = 10;
+            this.btnSimbolos.Text = "Guardar Simbolos";
+            this.btnSimbolos.UseVisualStyleBackColor = true;
+            this.btnSimbolos.Click += new System.EventHandler(this.btnSimbolos_Click);
             // 
             // lblListaSim
             // 
@@ -204,31 +225,20 @@
             this.rtxErrores.TabIndex = 7;
             this.rtxErrores.Text = "";
             // 
-            // btnTokens
+            // richTextBox1
             // 
-            this.btnTokens.Location = new System.Drawing.Point(573, 4);
-            this.btnTokens.Name = "btnTokens";
-            this.btnTokens.Size = new System.Drawing.Size(108, 24);
-            this.btnTokens.TabIndex = 11;
-            this.btnTokens.Text = "Guardar Tokens";
-            this.btnTokens.UseVisualStyleBackColor = true;
-            this.btnTokens.Click += new System.EventHandler(this.btnTokens_Click);
-            // 
-            // btnSimbolos
-            // 
-            this.btnSimbolos.Location = new System.Drawing.Point(704, 48);
-            this.btnSimbolos.Name = "btnSimbolos";
-            this.btnSimbolos.Size = new System.Drawing.Size(75, 39);
-            this.btnSimbolos.TabIndex = 10;
-            this.btnSimbolos.Text = "Guardar Simbolos";
-            this.btnSimbolos.UseVisualStyleBackColor = true;
-            this.btnSimbolos.Click += new System.EventHandler(this.btnSimbolos_Click);
+            this.richTextBox1.Location = new System.Drawing.Point(806, 40);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(298, 384);
+            this.richTextBox1.TabIndex = 13;
+            this.richTextBox1.Text = "";
             // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 558);
+            this.ClientSize = new System.Drawing.Size(1116, 558);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -261,6 +271,7 @@
         private System.Windows.Forms.Label lblErrores;
         private System.Windows.Forms.Button btnTokens;
         private System.Windows.Forms.Button btnSimbolos;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
