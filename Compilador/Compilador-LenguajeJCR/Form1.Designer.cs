@@ -45,6 +45,7 @@
             this.lblErrores = new System.Windows.Forms.Label();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnSintactico = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -132,6 +133,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.panel1.Controls.Add(this.btnSintactico);
             this.panel1.Controls.Add(this.btnTokens);
             this.panel1.Controls.Add(this.btnLimpiar);
             this.panel1.Controls.Add(this.btnCargar);
@@ -233,6 +235,15 @@
             this.richTextBox1.TabIndex = 13;
             this.richTextBox1.Text = "";
             // 
+            // btnSintactico
+            // 
+            this.btnSintactico.Location = new System.Drawing.Point(939, 5);
+            this.btnSintactico.Name = "btnSintactico";
+            this.btnSintactico.Size = new System.Drawing.Size(75, 23);
+            this.btnSintactico.TabIndex = 12;
+            this.btnSintactico.Text = "Sintactico";
+            this.btnSintactico.UseVisualStyleBackColor = true;
+            // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,6 +283,7 @@
         private System.Windows.Forms.Button btnTokens;
         private System.Windows.Forms.Button btnSimbolos;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnSintactico;
     }
 }
 
