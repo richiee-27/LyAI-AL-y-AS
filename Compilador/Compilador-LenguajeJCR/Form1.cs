@@ -21,6 +21,7 @@ namespace Compilador_LenguajeJCR
         int ID = 0;
         List<String> lstErrores = new List<string>();
         string nombreArchivoCodigo = "";
+        string tokens2 = "";
         public frmLJCR()
         {
             InitializeComponent();
@@ -125,12 +126,15 @@ namespace Compilador_LenguajeJCR
                             if (EDOAC == "IDEN")
                             {
                                 ID = GuardarSimbolo(Simbolo);
+                                tokens2 = tokens2 + EDOAC+" ";
                                 Tokens = Tokens + "ID" + ID + " ";
+                               
                                 Simbolo = "";
                             }
                             else
                             {
                                 Simbolo = "";
+                                tokens2 = tokens2 + EDOAC + " ";
                                 Tokens = Tokens + EDOAC + " ";
                             }
                         }
@@ -139,12 +143,14 @@ namespace Compilador_LenguajeJCR
                             if (EDOAC == "IDEN")
                             {
                                 ID = GuardarSimbolo(Simbolo);
+                                tokens2 = tokens2 + EDOAC + "\n";
                                 Tokens = Tokens + "ID" + ID + "\n";
                                 Simbolo = "";
                             }
                             else
                             {
                                 Simbolo = "";
+                                tokens2 = tokens2 + EDOAC + "\n";
                                 Tokens = Tokens + EDOAC + "\n";
                             }
                             Linea++;
@@ -155,11 +161,13 @@ namespace Compilador_LenguajeJCR
                         if(ArregloCodigo[i].ToString() == " ")
                         {
                             Simbolo = "";
+                            tokens2 = tokens2 + " ";
                             Tokens = Tokens + " "; 
                         }
                         if(ArregloCodigo[i].ToString() == "\n")
                         {
                             Simbolo = "";
+                            tokens2 = tokens2 + "\n";
                             Tokens = Tokens + "\n";
                             Linea++;
                         }
@@ -191,11 +199,13 @@ namespace Compilador_LenguajeJCR
                     if (EDOAC == "IDEN")
                     {
                         ID = GuardarSimbolo(Simbolo);
+                        tokens2 = tokens2 + EDOAC;
                         Tokens = Tokens + "ID" + ID;
                         Simbolo = "";
                     }
                     else
                     {
+                        tokens2 = tokens2 + EDOAC;
                         Tokens = Tokens + EDOAC;
                     }
                     EDO = 0;
@@ -570,6 +580,64 @@ namespace Compilador_LenguajeJCR
                 }
                 escribir.Close();
             }
+        }
+
+        private void btnSintactico_Click(object sender, EventArgs e)
+        {
+            SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+            string tokaux = rtxTokens.Text;
+            rtxTokens.Text = tokens2;
+            string primeraCadena = "";
+            string segundaCadena = "";
+            for (int x = 0; x < rtxTokens.Lines.Count(); x++)
+            {
+                primeraCadena = rtxTokens.Lines[x];
+                MessageBox.Show(rtxTokens.Lines.Count().ToString());
+                segundaCadena = rtxTokens.Lines[x];
+                bool bandera = true;
+
+                do
+                {
+                    MiConexion.Open();
+                    SqlDataReader myDtRd;
+                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G2 ORDER BY PRODUCCION ASC, LEN(VALOR) DESC", MiConexion);
+                    myDtRd = myQuery.ExecuteReader();
+
+                    while (myDtRd.Read())
+                    {
+                        if (primeraCadena.Length >= myDtRd.GetInt32(2))
+                        {
+                            if (primeraCadena.Replace(myDtRd.GetString(1), myDtRd.GetString(0)) != segundaCadena)
+                            {
+                                MessageBox.Show("Cadena Principal: " + primeraCadena + "\nSe cambio: " + myDtRd.GetString(1) + "\nPor: " + myDtRd.GetString(0));
+                                segundaCadena = primeraCadena.Replace(myDtRd.GetString(1), myDtRd.GetString(0));
+                                primeraCadena = segundaCadena;
+                                //MessageBox.Show(primeraCadena + "\n" + segundaCadena);
+                                rtxGramatica.Text += segundaCadena + "\n";
+                                break;
+                            }
+                            else
+                            {
+                                //MessageBox.Show("no hubo cambios");
+
+                            }
+
+                        }
+                    }
+                    MiConexion.Close();
+
+                    if (primeraCadena == "S" || primeraCadena == "S ")
+                    {
+                        bandera = false;
+                        //rtxtGramatica.Text += primeraCadena + "\n";
+                        //MessageBox.Show("ya hay una S, el recorrido termino");
+                    }
+
+                } while (bandera);
+                //MessageBox.Show("ya salio del dowhile");
+            }
+            //rtxTokens.Text = tokaux;
+
         }
 
         public void LimpiarDatos()
