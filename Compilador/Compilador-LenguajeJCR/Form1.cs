@@ -592,11 +592,11 @@ namespace Compilador_LenguajeJCR
             rtxGramatica.Text = "";
             string primeraCadena = "";
             string segundaCadena = "";
-            MessageBox.Show(tokens2);
+            //MessageBox.Show(tokens2);
             for (int x = 0; x < rtxTokens.Lines.Count(); x++)
             {
                 primeraCadena = rtxTokens.Lines[x];
-                MessageBox.Show(rtxTokens.Lines.Count().ToString());
+                //MessageBox.Show(rtxTokens.Lines.Count().ToString());
                 segundaCadena = rtxTokens.Lines[x];
                 bool bandera = true;
                 iteracion = 0;
@@ -604,7 +604,7 @@ namespace Compilador_LenguajeJCR
                 {
                     MiConexion.Open();
                     SqlDataReader myDtRd;
-                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G ORDER BY PRODUCCION DESC, LEN(VALOR) DESC", MiConexion);
+                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G ORDER BY PRODUCCION ASC, LEN(VALOR) ASC", MiConexion);
                     myDtRd = myQuery.ExecuteReader();
                     
 
