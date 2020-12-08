@@ -60,6 +60,7 @@ namespace Compilador_LenguajeJCR
             lst.Clear();
             rtxErrores.Clear();
             rtxErrores.Update();
+            tokens2 = "";
          
 
             for(int i = 0; i < ArregloCodigo.Length; i++)
@@ -587,24 +588,29 @@ namespace Compilador_LenguajeJCR
             SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
             string tokaux = rtxTokens.Text;
             rtxTokens.Text = tokens2;
+            int iteracion = 0;
+            rtxGramatica.Text = "";
             string primeraCadena = "";
             string segundaCadena = "";
+            MessageBox.Show(tokens2);
             for (int x = 0; x < rtxTokens.Lines.Count(); x++)
             {
                 primeraCadena = rtxTokens.Lines[x];
                 MessageBox.Show(rtxTokens.Lines.Count().ToString());
                 segundaCadena = rtxTokens.Lines[x];
                 bool bandera = true;
-
+                iteracion = 0;
                 do
                 {
                     MiConexion.Open();
                     SqlDataReader myDtRd;
-                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G2 ORDER BY PRODUCCION ASC, LEN(VALOR) DESC", MiConexion);
+                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G ORDER BY PRODUCCION DESC, LEN(VALOR) DESC", MiConexion);
                     myDtRd = myQuery.ExecuteReader();
+                    
 
                     while (myDtRd.Read())
                     {
+                        iteracion++;
                         if (primeraCadena.Length >= myDtRd.GetInt32(2))
                         {
                             if (primeraCadena.Replace(myDtRd.GetString(1), myDtRd.GetString(0)) != segundaCadena)
@@ -618,11 +624,16 @@ namespace Compilador_LenguajeJCR
                             }
                             else
                             {
-                                //MessageBox.Show("no hubo cambios");
+                                
+                                //rtxGramatica.Text += "Linea no aceptada"+ "\n";
+                                //bandera = false;
+                                //break;
 
                             }
 
                         }
+                        if (iteracion > 1000) { rtxGramatica.Text += "Linea no aceptada" + "\n"; bandera = false; break; }
+                       
                     }
                     MiConexion.Close();
 
