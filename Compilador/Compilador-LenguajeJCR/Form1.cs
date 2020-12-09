@@ -604,7 +604,7 @@ namespace Compilador_LenguajeJCR
                 {
                     MiConexion.Open();
                     SqlDataReader myDtRd;
-                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G ORDER BY PRODUCCION ASC, LEN(VALOR) ASC", MiConexion);
+                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G ORDER BY PRODUCCION DESC, LEN(VALOR) DESC", MiConexion);
                     myDtRd = myQuery.ExecuteReader();
                     
 
