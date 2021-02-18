@@ -1,4 +1,5 @@
-Inicio {
+Inicio 
+{
 Flotante Radio = 0 ;
 Flotante Area = 0 ;
 Leer ( Radio ) ;

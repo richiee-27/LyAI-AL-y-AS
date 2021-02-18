@@ -1,4 +1,6 @@
-Inicio { Cadena Dia = "Viernes" ;
+Inicio 
+{ 
+Cadena Dia = "Viernes" ;
 Cambia ( Dia ) {
 Caso "Lunes" :
 Imprime ( "Lunes" ) ;
@@ -16,5 +18,7 @@ Caso "Viernes" :
 Imprime ( "Viernes" ) ;
 Rompe ;
 Defecto :
-Imprime ( "No_es_dia" ) ; }
-} Fin
+Imprime ( "No_es_dia" ) ; 
+}
+} 
+Fin

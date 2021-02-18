@@ -1,4 +1,5 @@
-Inicio {
+Inicio 
+{
 Entero Dato1 = 3 ;
 Entero Dato2 = 2 ;
 Entero Sum+ = Dato1 + Dato2 ;

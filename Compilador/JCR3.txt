@@ -1,4 +1,5 @@
-Inicio {
+Inicio 
+{
 Entero Num1 ;
 Entero Num2 ;
 Entero Sum ;
