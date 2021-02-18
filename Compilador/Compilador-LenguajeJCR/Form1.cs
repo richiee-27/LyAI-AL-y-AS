@@ -592,11 +592,10 @@ namespace Compilador_LenguajeJCR
             rtxGramatica.Text = "";
             string primeraCadena = "";
             string segundaCadena = "";
-            //MessageBox.Show(tokens2);
+
             for (int x = 0; x < rtxTokens.Lines.Count(); x++)
             {
                 primeraCadena = rtxTokens.Lines[x];
-                //MessageBox.Show(rtxTokens.Lines.Count().ToString());
                 segundaCadena = rtxTokens.Lines[x];
                 bool bandera = true;
                 iteracion = 0;
