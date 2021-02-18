@@ -35,7 +35,7 @@ namespace Compilador_LenguajeJCR
             open.Title = "Cargar Archivo";
             open.Filter = "";
             var o = open.ShowDialog();
-            if(o == DialogResult.OK)
+            if (o == DialogResult.OK)
             {
                 StreamReader read = new StreamReader(open.FileName);
                 rtxCodigoFuente.Text = read.ReadToEnd();
@@ -49,7 +49,7 @@ namespace Compilador_LenguajeJCR
             bool Bandera = true;
             string Codigo = rtxCodigoFuente.Text;
             Char[] ArregloCodigo;
-             ArregloCodigo = Codigo.ToCharArray();
+            ArregloCodigo = Codigo.ToCharArray();
             int EDO = 0;
             string EDOAC = ""; //Variable para guardar el estado actual para después guardarlo en EDO y seguir analizando.
             string Tokens = "";
@@ -61,25 +61,25 @@ namespace Compilador_LenguajeJCR
             rtxErrores.Clear();
             rtxErrores.Update();
             tokens2 = "";
-         
 
-            for(int i = 0; i < ArregloCodigo.Length; i++)
+
+            for (int i = 0; i < ArregloCodigo.Length; i++)
             {
-                if(ArregloCodigo[i].ToString() != " " && ArregloCodigo[i].ToString() != "\n") 
+                if (ArregloCodigo[i].ToString() != " " && ArregloCodigo[i].ToString() != "\n")
                 {
                     //Evaluamos espacios en blanco y salto de carro.
-                    
 
-                        if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
-                        {
-                            EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
-                            EDO = int.Parse(EDOAC);// Se guarda el estado actual en la variable EDO (Estado)
-                            Simbolo = Simbolo + ArregloCodigo[i].ToString();
-                            Bandera = false;
-                            //break;
-                        }
-                   
-                 
+
+                    if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
+                    {
+                        EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
+                        EDO = int.Parse(EDOAC);// Se guarda el estado actual en la variable EDO (Estado)
+                        Simbolo = Simbolo + ArregloCodigo[i].ToString();
+                        Bandera = false;
+                        //break;
+                    }
+
+
                     if (Bandera)
                     {
                         //Evalua si en la cadena viene una comilla simple. 
@@ -91,11 +91,11 @@ namespace Compilador_LenguajeJCR
                         {
                             Aux = "[s";
                         }
-                        EDOAC = RecorrerMin(ArregloCodigo, EDO, i,Aux); //El resultado de esta consulta es guardado en EDOAC
+                        EDOAC = RecorrerMin(ArregloCodigo, EDO, i, Aux); //El resultado de esta consulta es guardado en EDOAC
                         EDO = int.Parse(EDOAC);
 
                         Simbolo = Simbolo + ArregloCodigo[i].ToString();
-                        
+
                     }
                     Bandera = true;
                 }
@@ -127,9 +127,9 @@ namespace Compilador_LenguajeJCR
                             if (EDOAC == "IDEN")
                             {
                                 ID = GuardarSimbolo(Simbolo);
-                                tokens2 = tokens2 + EDOAC+" ";
+                                tokens2 = tokens2 + EDOAC + " ";
                                 Tokens = Tokens + "ID" + ID + " ";
-                               
+
                                 Simbolo = "";
                             }
                             else
@@ -159,13 +159,13 @@ namespace Compilador_LenguajeJCR
                     }
                     else
                     {
-                        if(ArregloCodigo[i].ToString() == " ")
+                        if (ArregloCodigo[i].ToString() == " ")
                         {
                             Simbolo = "";
                             tokens2 = tokens2 + " ";
-                            Tokens = Tokens + " "; 
+                            Tokens = Tokens + " ";
                         }
-                        if(ArregloCodigo[i].ToString() == "\n")
+                        if (ArregloCodigo[i].ToString() == "\n")
                         {
                             Simbolo = "";
                             tokens2 = tokens2 + "\n";
@@ -175,7 +175,7 @@ namespace Compilador_LenguajeJCR
                     }
 
                 }
-                if (i == ArregloCodigo.Length-1)// ES PARA SABER SI ESTAMOS EN EL FINAL DEL ARREGLO
+                if (i == ArregloCodigo.Length - 1)// ES PARA SABER SI ESTAMOS EN EL FINAL DEL ARREGLO
                 {
                     if (ArregloCodigo[i].ToString() == " " || ArregloCodigo[i].ToString() == "\n")
                     {
@@ -210,14 +210,14 @@ namespace Compilador_LenguajeJCR
                         Tokens = Tokens + EDOAC;
                     }
                     EDO = 0;
-                
+
                 }
 
             } rtxTokens.Text = Tokens;
-              CambiarColor();
+            CambiarColor();
         }
 
-        public string Recorrer(char [] miArreglo, int intEdo, int indice)
+        public string Recorrer(char[] miArreglo, int intEdo, int indice)
         {
             //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
             SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
@@ -234,7 +234,7 @@ namespace Compilador_LenguajeJCR
 
             return dt.Rows[0][miArreglo[indice].ToString()].ToString();
         }
-        
+
         public string ObtenerDel(int edo)
         {
             //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
@@ -270,7 +270,7 @@ namespace Compilador_LenguajeJCR
             return dt.Rows[0]["TOKEN"].ToString();
         }
 
-        public string RecorrerMin(char [] miArreglo, int intEdo, int indice, string Query)
+        public string RecorrerMin(char[] miArreglo, int intEdo, int indice, string Query)
         {
             //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
             SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
@@ -285,11 +285,11 @@ namespace Compilador_LenguajeJCR
             sqlDA = new SqlDataAdapter(cmd);
             sqlDA.Fill(dt);
             cnn.Close();
-            
-            if(Query == "[s ")
-            return dt.Rows[0]["s " +miArreglo[indice].ToString()].ToString();
+
+            if (Query == "[s ")
+                return dt.Rows[0]["s " + miArreglo[indice].ToString()].ToString();
             else
-            return dt.Rows[0]["s" + miArreglo[indice].ToString()].ToString();
+                return dt.Rows[0]["s" + miArreglo[indice].ToString()].ToString();
 
         }
 
@@ -298,7 +298,7 @@ namespace Compilador_LenguajeJCR
             clsSimbolo miSimbolo = new clsSimbolo();
             miSimbolo.Numero = COID;
             miSimbolo.Nombre = SBL;
-            if(lst.Count == 0)
+            if (lst.Count == 0)
             {
                 lst.Add(miSimbolo);
                 lsbSimbolos.Items.Add(miSimbolo.ToString());
@@ -307,25 +307,25 @@ namespace Compilador_LenguajeJCR
             }
             else
             {
-                    foreach(clsSimbolo miSBL in lst)
+                foreach (clsSimbolo miSBL in lst)
+                {
+                    if (miSBL.Equals(miSimbolo))
                     {
-                      if(miSBL.Equals(miSimbolo))
-                        {
-                            return miSBL.Numero;
-                        }
+                        return miSBL.Numero;
                     }
+                }
             }
 
             lst.Add(miSimbolo);
             lsbSimbolos.Items.Clear();
-            foreach(clsSimbolo miSBL in lst)
+            foreach (clsSimbolo miSBL in lst)
             {
                 lsbSimbolos.Items.Add(miSBL.ToString());
 
             }
             COID++;
             return miSimbolo.Numero;
-            
+
         }
 
         public void ManejarErrores(string error)
@@ -342,7 +342,7 @@ namespace Compilador_LenguajeJCR
                     rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
                     break;
                 case "EROL":
-                    Errors = Errors + "ERROR DE OPERADOR LÓGICO EN LA LINEA: " + Linea +  "\n";
+                    Errors = Errors + "ERROR DE OPERADOR LÓGICO EN LA LINEA: " + Linea + "\n";
                     rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
                     break;
                 case "EROA":
@@ -358,11 +358,11 @@ namespace Compilador_LenguajeJCR
                     rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
                     break;
                 case "ERCE":
-                    Errors = Errors + "ERROR DE CARÁCTER EN LA LINEA: " + Linea +  "\n";
+                    Errors = Errors + "ERROR DE CARÁCTER EN LA LINEA: " + Linea + "\n";
                     rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
                     break;
                 case "ERCO":
-                    Errors = Errors + "ERROR DE CONSTANTE EN LA LINEA: " + Linea +  "\n";
+                    Errors = Errors + "ERROR DE CONSTANTE EN LA LINEA: " + Linea + "\n";
                     rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
                     break;
                 case "ERCM":
@@ -370,7 +370,7 @@ namespace Compilador_LenguajeJCR
                     rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
                     break;
                 case "ERDE":
-                    Errors = Errors + "ERROR DEL DELIMITANTE EN LA LINEA: " + Linea +  "\n";
+                    Errors = Errors + "ERROR DEL DELIMITANTE EN LA LINEA: " + Linea + "\n";
                     rtxErrores.Text = "CANTIDAD DE ERRORES: " + CantError + "\n" + Errors;
                     break;
             }
@@ -500,8 +500,8 @@ namespace Compilador_LenguajeJCR
             sfd.FileName = "*.txt";
             sfd.DefaultExt = "txt";
             sfd.Filter = "txt files (*.txt) | *.txt";
-            
-            if(sfd.ShowDialog() == DialogResult.OK)
+
+            if (sfd.ShowDialog() == DialogResult.OK)
             {
                 Stream filestream = sfd.OpenFile();
                 StreamWriter sw = new StreamWriter(filestream);
@@ -605,7 +605,7 @@ namespace Compilador_LenguajeJCR
                     SqlDataReader myDtRd;
                     SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM G ORDER BY PRODUCCION DESC, LEN(VALOR) DESC", MiConexion);
                     myDtRd = myQuery.ExecuteReader();
-                    
+
 
                     while (myDtRd.Read())
                     {
@@ -623,7 +623,7 @@ namespace Compilador_LenguajeJCR
                             }
                             else
                             {
-                                
+
                                 //rtxGramatica.Text += "Linea no aceptada"+ "\n";
                                 //bandera = false;
                                 //break;
@@ -632,7 +632,7 @@ namespace Compilador_LenguajeJCR
 
                         }
                         if (iteracion > 1000) { rtxGramatica.Text += "Linea no aceptada" + "\n"; bandera = false; break; }
-                       
+
                     }
                     MiConexion.Close();
 
@@ -650,8 +650,7 @@ namespace Compilador_LenguajeJCR
 
         }
 
-        public void LimpiarDatos()
-        {
+        public void LimpiarDatos(){
             rtxCodigoFuente.Text = "";
             rtxErrores.Clear();
             rtxErrores.Update();
@@ -659,5 +658,8 @@ namespace Compilador_LenguajeJCR
             lsbSimbolos.Items.Clear();
             lst.Clear();
         }
+
+       // { }== LLCE [ ] ( ) ; :
+       // S LLCE
     }
 }
