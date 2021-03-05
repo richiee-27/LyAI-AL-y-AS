@@ -24,6 +24,23 @@ namespace Compilador_LenguajeJCR
 			set { _strNombre = value; }
 		}
 
+		private string strValor;
+
+		public string Valor
+		{
+			get { return strValor; }
+			set { strValor = value; }
+		}
+
+		private string strTipoDato;
+
+		public string TipoDeDato
+		{
+			get { return strTipoDato; }
+			set { strTipoDato = value; }
+		}
+
+
 		public bool Equals (clsSimbolo OtroObjeto)
 		{
 			return (this.Nombre == OtroObjeto.Nombre);

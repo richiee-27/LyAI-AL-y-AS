@@ -200,9 +200,9 @@
             // 
             // btnSimbolos
             // 
-            this.btnSimbolos.Location = new System.Drawing.Point(704, 48);
+            this.btnSimbolos.Location = new System.Drawing.Point(525, 5);
             this.btnSimbolos.Name = "btnSimbolos";
-            this.btnSimbolos.Size = new System.Drawing.Size(75, 39);
+            this.btnSimbolos.Size = new System.Drawing.Size(115, 26);
             this.btnSimbolos.TabIndex = 10;
             this.btnSimbolos.Text = "Guardar Simbolos";
             this.btnSimbolos.UseVisualStyleBackColor = true;

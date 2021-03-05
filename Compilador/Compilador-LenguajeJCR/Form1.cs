@@ -22,6 +22,7 @@ namespace Compilador_LenguajeJCR
         List<String> lstErrores = new List<string>();
         string nombreArchivoCodigo = "";
         string tokens2 = "";
+        MetodoConexion Mimetodo = new MetodoConexion();
         public frmLJCR()
         {
             InitializeComponent();
@@ -72,7 +73,7 @@ namespace Compilador_LenguajeJCR
 
                     if (ArregloCodigo[i] >= (char)65 && ArregloCodigo[i] <= (char)90)//Compara si el caracter actual es una mayuscula
                     {
-                        EDOAC = Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
+                        EDOAC = Mimetodo.Recorrer(ArregloCodigo, EDO, i);// El resultado de la consulta es guardado en EDOAC (estado actual)
                         EDO = int.Parse(EDOAC);// Se guarda el estado actual en la variable EDO (Estado)
                         Simbolo = Simbolo + ArregloCodigo[i].ToString();
                         Bandera = false;
@@ -91,7 +92,7 @@ namespace Compilador_LenguajeJCR
                         {
                             Aux = "[s";
                         }
-                        EDOAC = RecorrerMin(ArregloCodigo, EDO, i, Aux); //El resultado de esta consulta es guardado en EDOAC
+                        EDOAC = Mimetodo.RecorrerMin(ArregloCodigo, EDO, i, Aux); //El resultado de esta consulta es guardado en EDOAC
                         EDO = int.Parse(EDOAC);
 
                         Simbolo = Simbolo + ArregloCodigo[i].ToString();
@@ -104,18 +105,18 @@ namespace Compilador_LenguajeJCR
                     if (EDO > 257)
                     {
                         CantError++;
-                        EDOAC = ObtenerToken(EDO);
+                        EDOAC = Mimetodo.ObtenerToken(EDO);
                         ManejarErrores(EDOAC);
                         lstErrores.Add(EDOAC);
                         Simbolo = "";
                     }
                     else
                     {
-                        EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
+                        EDOAC = Mimetodo.ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
                         if (EDOAC != "")
                         {
                             EDO = int.Parse(EDOAC); //se guarda en EDO
-                            EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                            EDOAC = Mimetodo.ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
                         }
                     }
                     // segun sea el caso agregara el salto o el espacio en blanco a la cadena de  tokens
@@ -186,15 +187,15 @@ namespace Compilador_LenguajeJCR
                     if (EDO > 257)
                     {
                         CantError++;
-                        EDOAC = ObtenerToken(EDO);
+                        EDOAC = Mimetodo.ObtenerToken(EDO);
                         ManejarErrores(EDOAC);
                         lstErrores.Add(EDOAC);
                     }
                     else
                     {
-                        EDOAC = ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
+                        EDOAC = Mimetodo.ObtenerDel(EDO); //se dirige a la columna DEL para ver a donde ira despues
                         EDO = int.Parse(EDOAC); //se guarda en EDO
-                        EDOAC = ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
+                        EDOAC = Mimetodo.ObtenerToken(EDO);//Se dirige a la columna TOKEN segun sea el estado y guarda el TOKEN
                     }
 
                     if (EDOAC == "IDEN")
@@ -217,81 +218,81 @@ namespace Compilador_LenguajeJCR
             CambiarColor();
         }
 
-        public string Recorrer(char[] miArreglo, int intEdo, int indice)
-        {
-            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-            SqlCommand cmd = new SqlCommand();
-            DataTable dt = new DataTable();
-            SqlDataAdapter sqlDA; cnn.Open();
+        //public string Recorrer(char[] miArreglo, int intEdo, int indice)
+        //{
+        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+        //    SqlCommand cmd = new SqlCommand();
+        //    DataTable dt = new DataTable();
+        //    SqlDataAdapter sqlDA; cnn.Open();
 
-            cmd.CommandText = "SELECT " + miArreglo[indice].ToString() + " FROM Matriz WHERE EDO = " + intEdo;
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = cnn;
-            sqlDA = new SqlDataAdapter(cmd);
-            sqlDA.Fill(dt);
-            cnn.Close();
+        //    cmd.CommandText = "SELECT " + miArreglo[indice].ToString() + " FROM Matriz WHERE EDO = " + intEdo;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Connection = cnn;
+        //    sqlDA = new SqlDataAdapter(cmd);
+        //    sqlDA.Fill(dt);
+        //    cnn.Close();
 
-            return dt.Rows[0][miArreglo[indice].ToString()].ToString();
-        }
+        //    return dt.Rows[0][miArreglo[indice].ToString()].ToString();
+        //}
 
-        public string ObtenerDel(int edo)
-        {
-            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-            SqlCommand cmd = new SqlCommand();
-            DataTable dt = new DataTable();
-            SqlDataAdapter sqlDA; cnn.Open();
+        //public string ObtenerDel(int edo)
+        //{
+        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+        //    SqlCommand cmd = new SqlCommand();
+        //    DataTable dt = new DataTable();
+        //    SqlDataAdapter sqlDA; cnn.Open();
 
-            cmd.CommandText = "SELECT DEL FROM Matriz WHERE EDO = " + edo;
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = cnn;
-            sqlDA = new SqlDataAdapter(cmd);
-            sqlDA.Fill(dt);
-            cnn.Close();
+        //    cmd.CommandText = "SELECT DEL FROM Matriz WHERE EDO = " + edo;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Connection = cnn;
+        //    sqlDA = new SqlDataAdapter(cmd);
+        //    sqlDA.Fill(dt);
+        //    cnn.Close();
 
-            return dt.Rows[0]["DEL"].ToString();
-        }
-        public string ObtenerToken(int edo)
-        {
-            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-            SqlCommand cmd = new SqlCommand();
-            DataTable dt = new DataTable();
-            SqlDataAdapter sqlDA; cnn.Open();
+        //    return dt.Rows[0]["DEL"].ToString();
+        //}
+        //public string ObtenerToken(int edo)
+        //{
+        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+        //    SqlCommand cmd = new SqlCommand();
+        //    DataTable dt = new DataTable();
+        //    SqlDataAdapter sqlDA; cnn.Open();
 
-            cmd.CommandText = "SELECT TOKEN FROM Matriz WHERE EDO = " + edo;
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = cnn;
-            sqlDA = new SqlDataAdapter(cmd);
-            sqlDA.Fill(dt);
-            cnn.Close();
+        //    cmd.CommandText = "SELECT TOKEN FROM Matriz WHERE EDO = " + edo;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Connection = cnn;
+        //    sqlDA = new SqlDataAdapter(cmd);
+        //    sqlDA.Fill(dt);
+        //    cnn.Close();
 
-            return dt.Rows[0]["TOKEN"].ToString();
-        }
+        //    return dt.Rows[0]["TOKEN"].ToString();
+        //}
 
-        public string RecorrerMin(char[] miArreglo, int intEdo, int indice, string Query)
-        {
-            //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-            SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-            SqlCommand cmd = new SqlCommand();
-            DataTable dt = new DataTable();
-            SqlDataAdapter sqlDA; cnn.Open();
+        //public string RecorrerMin(char[] miArreglo, int intEdo, int indice, string Query)
+        //{
+        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+        //    SqlCommand cmd = new SqlCommand();
+        //    DataTable dt = new DataTable();
+        //    SqlDataAdapter sqlDA; cnn.Open();
 
 
-            cmd.CommandText = "SELECT " + Query + miArreglo[indice].ToString() + "]" + " FROM Matriz WHERE EDO = " + intEdo;
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = cnn;
-            sqlDA = new SqlDataAdapter(cmd);
-            sqlDA.Fill(dt);
-            cnn.Close();
+        //    cmd.CommandText = "SELECT " + Query + miArreglo[indice].ToString() + "]" + " FROM Matriz WHERE EDO = " + intEdo;
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Connection = cnn;
+        //    sqlDA = new SqlDataAdapter(cmd);
+        //    sqlDA.Fill(dt);
+        //    cnn.Close();
 
-            if (Query == "[s ")
-                return dt.Rows[0]["s " + miArreglo[indice].ToString()].ToString();
-            else
-                return dt.Rows[0]["s" + miArreglo[indice].ToString()].ToString();
+        //    if (Query == "[s ")
+        //        return dt.Rows[0]["s " + miArreglo[indice].ToString()].ToString();
+        //    else
+        //        return dt.Rows[0]["s" + miArreglo[indice].ToString()].ToString();
 
-        }
+        //}
 
         public int GuardarSimbolo(string SBL)
         {
@@ -621,15 +622,6 @@ namespace Compilador_LenguajeJCR
                                 rtxGramatica.Text += segundaCadena + "\n";
                                 break;
                             }
-                            else
-                            {
-
-                                //rtxGramatica.Text += "Linea no aceptada"+ "\n";
-                                //bandera = false;
-                                //break;
-
-                            }
-
                         }
                         if (iteracion > 1000) { rtxGramatica.Text += "Linea no aceptada" + "\n"; bandera = false; break; }
 
