@@ -14,13 +14,13 @@ namespace Compilador_LenguajeJCR
 {
     public partial class frmLJCR : Form
     {
+        Archivos miArhivo;
         string Errors = "";
         int Linea = 1, CantError = 0;
         List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
         int COID = 0;
         int ID = 0;
         List<String> lstErrores = new List<string>();
-        string nombreArchivoCodigo = "";
         string tokens2 = "";
         MetodoConexion Mimetodo = new MetodoConexion();
         public frmLJCR()
@@ -30,19 +30,8 @@ namespace Compilador_LenguajeJCR
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            //Función para cargar el archivo de texto 
-            OpenFileDialog open = new OpenFileDialog();
-            open.Filter = "Text Documents | *.txt";
-            open.Title = "Cargar Archivo";
-            open.Filter = "";
-            var o = open.ShowDialog();
-            if (o == DialogResult.OK)
-            {
-                StreamReader read = new StreamReader(open.FileName);
-                rtxCodigoFuente.Text = read.ReadToEnd();
-                read.Close();
-            }
-
+            miArhivo = new Archivos();
+            miArhivo.CargarArchivo(rtxCodigoFuente);
         }
 
         private void btnAnalizar_Click(object sender, EventArgs e)
@@ -217,82 +206,6 @@ namespace Compilador_LenguajeJCR
             } rtxTokens.Text = Tokens;
             CambiarColor();
         }
-
-        //public string Recorrer(char[] miArreglo, int intEdo, int indice)
-        //{
-        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-        //    SqlCommand cmd = new SqlCommand();
-        //    DataTable dt = new DataTable();
-        //    SqlDataAdapter sqlDA; cnn.Open();
-
-        //    cmd.CommandText = "SELECT " + miArreglo[indice].ToString() + " FROM Matriz WHERE EDO = " + intEdo;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.Connection = cnn;
-        //    sqlDA = new SqlDataAdapter(cmd);
-        //    sqlDA.Fill(dt);
-        //    cnn.Close();
-
-        //    return dt.Rows[0][miArreglo[indice].ToString()].ToString();
-        //}
-
-        //public string ObtenerDel(int edo)
-        //{
-        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-        //    SqlCommand cmd = new SqlCommand();
-        //    DataTable dt = new DataTable();
-        //    SqlDataAdapter sqlDA; cnn.Open();
-
-        //    cmd.CommandText = "SELECT DEL FROM Matriz WHERE EDO = " + edo;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.Connection = cnn;
-        //    sqlDA = new SqlDataAdapter(cmd);
-        //    sqlDA.Fill(dt);
-        //    cnn.Close();
-
-        //    return dt.Rows[0]["DEL"].ToString();
-        //}
-        //public string ObtenerToken(int edo)
-        //{
-        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-        //    SqlCommand cmd = new SqlCommand();
-        //    DataTable dt = new DataTable();
-        //    SqlDataAdapter sqlDA; cnn.Open();
-
-        //    cmd.CommandText = "SELECT TOKEN FROM Matriz WHERE EDO = " + edo;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.Connection = cnn;
-        //    sqlDA = new SqlDataAdapter(cmd);
-        //    sqlDA.Fill(dt);
-        //    cnn.Close();
-
-        //    return dt.Rows[0]["TOKEN"].ToString();
-        //}
-
-        //public string RecorrerMin(char[] miArreglo, int intEdo, int indice, string Query)
-        //{
-        //    //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
-        //    SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-        //    SqlCommand cmd = new SqlCommand();
-        //    DataTable dt = new DataTable();
-        //    SqlDataAdapter sqlDA; cnn.Open();
-
-
-        //    cmd.CommandText = "SELECT " + Query + miArreglo[indice].ToString() + "]" + " FROM Matriz WHERE EDO = " + intEdo;
-        //    cmd.CommandType = CommandType.Text;
-        //    cmd.Connection = cnn;
-        //    sqlDA = new SqlDataAdapter(cmd);
-        //    sqlDA.Fill(dt);
-        //    cnn.Close();
-
-        //    if (Query == "[s ")
-        //        return dt.Rows[0]["s " + miArreglo[indice].ToString()].ToString();
-        //    else
-        //        return dt.Rows[0]["s" + miArreglo[indice].ToString()].ToString();
-
-        //}
 
         public int GuardarSimbolo(string SBL)
         {
@@ -495,24 +408,9 @@ namespace Compilador_LenguajeJCR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialDirectory = @"C:\";
-            sfd.RestoreDirectory = true;
-            sfd.FileName = "*.txt";
-            sfd.DefaultExt = "txt";
-            sfd.Filter = "txt files (*.txt) | *.txt";
-
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                Stream filestream = sfd.OpenFile();
-                StreamWriter sw = new StreamWriter(filestream);
-
-                sw.Write(rtxCodigoFuente.Text);
-                sw.Close();
-                filestream.Close();
-
-                LimpiarDatos();
-            }
+            miArhivo = new Archivos();
+            miArhivo.GuardarArchivo(rtxCodigoFuente);
+            LimpiarDatos();
         }
 
         private void rtxCodigoFuente_VScroll(object sender, EventArgs e)
@@ -524,64 +422,14 @@ namespace Compilador_LenguajeJCR
 
         private void btnTokens_Click(object sender, EventArgs e)
         {
-            SaveFileDialog guardar = new SaveFileDialog();
-            if (nombreArchivoCodigo != "")
-            {
-                guardar.FileName = nombreArchivoCodigo;
-                guardar.Title = nombreArchivoCodigo;
-                StreamWriter escribir = new StreamWriter(guardar.FileName);
-                foreach (object line in rtxCodigoFuente.Lines)
-                {
-                    escribir.WriteLine(line);
-                }
-                escribir.Close();
-                MessageBox.Show("Archivo modificado con éxito", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                return;
-            }
-            guardar.Filter = "documento de texto|*.txt";
-            guardar.Title = "GUARDAR";
-            guardar.FileName = "Sin titulo";
-            var resultado = guardar.ShowDialog();
-            if (resultado == DialogResult.OK)
-            {
-                StreamWriter escribir = new StreamWriter(guardar.FileName);
-                foreach (object line in rtxTokens.Lines)
-                {
-                    escribir.WriteLine(line);
-                }
-                escribir.Close();
-            }
+            miArhivo = new Archivos();
+            miArhivo.GuardarTokens(rtxCodigoFuente, rtxTokens);
         }
 
         private void btnSimbolos_Click(object sender, EventArgs e)
         {
-            SaveFileDialog guardar = new SaveFileDialog();
-            if (nombreArchivoCodigo != "")
-            {
-                guardar.FileName = nombreArchivoCodigo;
-                guardar.Title = nombreArchivoCodigo;
-                StreamWriter escribir = new StreamWriter(guardar.FileName);
-                foreach (object line in rtxCodigoFuente.Lines)
-                {
-                    escribir.WriteLine(line);
-                }
-                escribir.Close();
-                MessageBox.Show("Archivo modificado con éxito", "Correcto", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                return;
-            }
-            guardar.Filter = "documento de texto|*.txt";
-            guardar.Title = "GUARDAR";
-            guardar.FileName = "Sin titulo";
-            var resultado = guardar.ShowDialog();
-            if (resultado == DialogResult.OK)
-            {
-                StreamWriter escribir = new StreamWriter(guardar.FileName);
-                foreach (object line in lsbSimbolos.Items)
-                {
-                    escribir.WriteLine(line);
-                }
-                escribir.Close();
-            }
+            miArhivo = new Archivos();
+            miArhivo.AlmacenarSimbolos(rtxCodigoFuente, lsbSimbolos);
         }
 
         private void btnSintactico_Click(object sender, EventArgs e)

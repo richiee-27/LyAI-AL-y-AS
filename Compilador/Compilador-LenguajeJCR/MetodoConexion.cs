@@ -12,11 +12,12 @@ namespace Compilador_LenguajeJCR
     {
         SqlConnection cnn = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
         SqlCommand cmd = new SqlCommand();
-        DataTable dt = new DataTable();
-        SqlDataAdapter sqlDA;
+
 
         public string Recorrer(char[] miArreglo, int intEdo, int indice)
         {
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA;
             cnn.Open();
 
             cmd.CommandText = "SELECT " + miArreglo[indice].ToString() + " FROM Matriz WHERE EDO = " + intEdo;
@@ -32,6 +33,9 @@ namespace Compilador_LenguajeJCR
         public string ObtenerDel(int edo)
         {
             //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+ 
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA;
             cnn.Open();
 
             cmd.CommandText = "SELECT DEL FROM Matriz WHERE EDO = " + edo;
@@ -47,6 +51,9 @@ namespace Compilador_LenguajeJCR
         public string ObtenerToken(int edo)
         {
             //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+           
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA;
             cnn.Open();
 
             cmd.CommandText = "SELECT TOKEN FROM Matriz WHERE EDO = " + edo;
@@ -62,6 +69,9 @@ namespace Compilador_LenguajeJCR
         public string RecorrerMin(char[] miArreglo, int intEdo, int indice, string Query)
         {
             //Este metodo se manda a llamar solamente cuando se traten de mayúsculas.
+            
+            DataTable dt = new DataTable();
+            SqlDataAdapter sqlDA;
             cnn.Open();
 
 
