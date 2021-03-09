@@ -113,6 +113,13 @@ namespace Compilador_LenguajeJCR
                     EDO = 0;
                     if (EDOAC != "")
                     {
+                        if (Simbolo.Contains("."))    // Pregunta si llega a ser constante, si es entera o flotante
+                        {
+                            EDOAC = "CONF";
+                        }
+                        else{
+                            EDOAC = "CONE";
+                        }
                         //string strTipo = "", strValor = "";
                         if (ArregloCodigo[i].ToString() == " ")
                         {
