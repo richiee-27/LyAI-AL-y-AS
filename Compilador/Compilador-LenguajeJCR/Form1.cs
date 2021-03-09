@@ -51,6 +51,7 @@ namespace Compilador_LenguajeJCR
             rtxErrores.Clear();
             rtxErrores.Update();
             tokens2 = "";
+            string strTipo = "", strValor = "";
 
 
             for (int i = 0; i < ArregloCodigo.Length; i++)
@@ -112,11 +113,23 @@ namespace Compilador_LenguajeJCR
                     EDO = 0;
                     if (EDOAC != "")
                     {
+                        //string strTipo = "", strValor = "";
                         if (ArregloCodigo[i].ToString() == " ")
                         {
+                            //Instrucción temporal para guardar el tipo de dato del identificador.
+                            string[] ArrSimb = { "PR02", "PR10", "PR14", "PR01", "PR05", "PR06"};
+                          
+                            for(int x = 0; x < ArrSimb.Length; x++)
+                            {
+                                if (EDOAC == ArrSimb[x])
+                                {
+                                    strTipo = Simbolo;
+                                }
+                                
+                            }
                             if (EDOAC == "IDEN")
                             {
-                                ID = GuardarSimbolo(Simbolo);
+                                ID = GuardarSimbolo(Simbolo, strTipo, strValor); //ALMACENA SIMBOLO
                                 tokens2 = tokens2 + EDOAC + " ";
                                 Tokens = Tokens + "ID" + ID + " ";
 
@@ -131,12 +144,13 @@ namespace Compilador_LenguajeJCR
                         }
                         if (ArregloCodigo[i].ToString() == "\n")
                         {
+
                             if (EDOAC == "IDEN")
                             {
-                                ID = GuardarSimbolo(Simbolo);
+                                ID = GuardarSimbolo(Simbolo,strTipo,strValor);  //ALMACENA SIMBOLO
                                 tokens2 = tokens2 + EDOAC + "\n";
                                 Tokens = Tokens + "ID" + ID + "\n";
-                                Simbolo = "";
+                                //Simbolo = "";
                             }
                             else
                             {
@@ -189,7 +203,7 @@ namespace Compilador_LenguajeJCR
 
                     if (EDOAC == "IDEN")
                     {
-                        ID = GuardarSimbolo(Simbolo);
+                        ID = GuardarSimbolo(Simbolo,strValor,strTipo);  //ALMACENA SIMBOLOS
                         tokens2 = tokens2 + EDOAC;
                         Tokens = Tokens + "ID" + ID;
                         Simbolo = "";
@@ -207,11 +221,13 @@ namespace Compilador_LenguajeJCR
             CambiarColor();
         }
 
-        public int GuardarSimbolo(string SBL)
+        public int GuardarSimbolo(string SBL, string Tipo, string Valor)
         {
             clsSimbolo miSimbolo = new clsSimbolo();
             miSimbolo.Numero = COID;
             miSimbolo.Nombre = SBL;
+            miSimbolo.Valor = Valor;
+            miSimbolo.TipoDeDato = Tipo;
             if (lst.Count == 0)
             {
                 lst.Add(miSimbolo);

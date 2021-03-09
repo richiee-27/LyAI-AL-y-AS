@@ -48,7 +48,7 @@ namespace Compilador_LenguajeJCR
 
 		public override string ToString()
 		{
-			return this.Numero + "\t" + this.Nombre;
+			return this.Numero + "\t" + this.Nombre + "\t" + this.TipoDeDato + "\t" + this.Valor;
 		}
 
 
