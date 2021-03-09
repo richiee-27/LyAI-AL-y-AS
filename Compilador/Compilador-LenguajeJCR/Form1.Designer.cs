@@ -193,7 +193,7 @@
             this.panel3.Controls.Add(this.rtxErrores);
             this.panel3.Controls.Add(this.lsbSimbolos);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 430);
+            this.panel3.Location = new System.Drawing.Point(0, 438);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1116, 128);
             this.panel3.TabIndex = 12;
@@ -249,7 +249,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1116, 558);
+            this.ClientSize = new System.Drawing.Size(1116, 566);
             this.Controls.Add(this.rtxGramatica);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
