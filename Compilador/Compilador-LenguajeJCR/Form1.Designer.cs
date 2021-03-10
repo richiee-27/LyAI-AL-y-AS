@@ -46,6 +46,7 @@
             this.lblErrores = new System.Windows.Forms.Label();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -102,7 +103,7 @@
             this.lsbSimbolos.FormattingEnabled = true;
             this.lsbSimbolos.Location = new System.Drawing.Point(376, 34);
             this.lsbSimbolos.Name = "lsbSimbolos";
-            this.lsbSimbolos.Size = new System.Drawing.Size(305, 82);
+            this.lsbSimbolos.Size = new System.Drawing.Size(331, 82);
             this.lsbSimbolos.TabIndex = 6;
             // 
             // LineNumberTextBox
@@ -187,6 +188,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.listBox1);
             this.panel3.Controls.Add(this.btnSimbolos);
             this.panel3.Controls.Add(this.lblListaSim);
             this.panel3.Controls.Add(this.lblErrores);
@@ -200,7 +202,7 @@
             // 
             // btnSimbolos
             // 
-            this.btnSimbolos.Location = new System.Drawing.Point(525, 5);
+            this.btnSimbolos.Location = new System.Drawing.Point(592, 6);
             this.btnSimbolos.Name = "btnSimbolos";
             this.btnSimbolos.Size = new System.Drawing.Size(115, 26);
             this.btnSimbolos.TabIndex = 10;
@@ -245,6 +247,14 @@
             this.rtxGramatica.TabIndex = 13;
             this.rtxGramatica.Text = "";
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(713, 34);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(391, 82);
+            this.listBox1.TabIndex = 11;
+            // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -285,6 +295,7 @@
         private System.Windows.Forms.Button btnSimbolos;
         private System.Windows.Forms.RichTextBox rtxGramatica;
         private System.Windows.Forms.Button btnSintactico;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

@@ -21,7 +21,7 @@ namespace Compilador_LenguajeJCR
         int COID = 0;
         int ID = 0;
         List<String> lstErrores = new List<string>();
-        string tokens2 = "";
+        string tokens2 = "", tokensSem = "";
         MetodoConexion Mimetodo = new MetodoConexion();
         public frmLJCR()
         {
@@ -139,12 +139,20 @@ namespace Compilador_LenguajeJCR
                                 ID = GuardarSimbolo(Simbolo, strTipo, strValor); //ALMACENA SIMBOLO
                                 tokens2 = tokens2 + EDOAC + " ";
                                 Tokens = Tokens + "ID" + ID + " ";
+                                foreach (clsSimbolo miSbl in lst)
+                                {
+                                    if (ID == miSbl.Numero)
+                                    {
+                                        tokensSem = tokensSem + TipoDatoIDEN(miSbl.TipoDeDato) + " ";
+                                    }
+                                }
 
                                 Simbolo = "";
                             }
                             else
                             {
                                 Simbolo = "";
+                                tokensSem = tokensSem + " ";
                                 tokens2 = tokens2 + EDOAC + " ";
                                 Tokens = Tokens + EDOAC + " ";
                             }
@@ -157,11 +165,19 @@ namespace Compilador_LenguajeJCR
                                 ID = GuardarSimbolo(Simbolo,strTipo,strValor);  //ALMACENA SIMBOLO
                                 tokens2 = tokens2 + EDOAC + "\n";
                                 Tokens = Tokens + "ID" + ID + "\n";
+                                foreach (clsSimbolo miSbl in lst)
+                                {
+                                    if (ID == miSbl.Numero)
+                                    {
+                                        tokensSem = tokensSem + TipoDatoIDEN(miSbl.TipoDeDato) + "\n";
+                                    }
+                                }
                                 //Simbolo = "";
                             }
                             else
                             {
                                 Simbolo = "";
+                                tokensSem = tokensSem + EDOAC + "\n";
                                 tokens2 = tokens2 + EDOAC + "\n";
                                 Tokens = Tokens + EDOAC + "\n";
                             }
@@ -173,12 +189,14 @@ namespace Compilador_LenguajeJCR
                         if (ArregloCodigo[i].ToString() == " ")
                         {
                             Simbolo = "";
+                            tokensSem = tokensSem + " ";
                             tokens2 = tokens2 + " ";
                             Tokens = Tokens + " ";
                         }
                         if (ArregloCodigo[i].ToString() == "\n")
                         {
                             Simbolo = "";
+                            tokensSem = tokensSem + "\n";
                             tokens2 = tokens2 + "\n";
                             Tokens = Tokens + "\n";
                             Linea++;
@@ -213,10 +231,18 @@ namespace Compilador_LenguajeJCR
                         ID = GuardarSimbolo(Simbolo,strValor,strTipo);  //ALMACENA SIMBOLOS
                         tokens2 = tokens2 + EDOAC;
                         Tokens = Tokens + "ID" + ID;
+                        foreach(clsSimbolo miSbl in lst)
+                        {
+                            if(ID == miSbl.Numero)
+                            {
+                                tokensSem = tokensSem + TipoDatoIDEN(miSbl.TipoDeDato);
+                            }
+                        }
                         Simbolo = "";
                     }
                     else
                     {
+                        tokensSem = tokensSem + EDOAC;
                         tokens2 = tokens2 + EDOAC;
                         Tokens = Tokens + EDOAC;
                     }
@@ -225,7 +251,31 @@ namespace Compilador_LenguajeJCR
                 }
 
             } rtxTokens.Text = Tokens;
+            MessageBox.Show(tokensSem);
             CambiarColor();
+        }
+        public string TipoDatoIDEN(String TipoDato)
+        {
+            string cambio = "";
+            switch (TipoDato)
+            {
+                case "Entero":
+                    cambio = "IDEN";
+                    break;
+                case "Flotante":
+                    cambio = "IDFL";
+                    break;
+                case "Cadena":
+                    cambio = "IDCA";
+                    break;
+                case "Caracter":
+                    cambio = "IDCE";
+                    break;
+                case "Bool":
+                    cambio = "IDBL";
+                    break;
+            }
+            return cambio;
         }
 
         public int GuardarSimbolo(string SBL, string Tipo, string Valor)
