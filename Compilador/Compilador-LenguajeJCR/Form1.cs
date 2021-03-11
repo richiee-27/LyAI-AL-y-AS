@@ -23,6 +23,8 @@ namespace Compilador_LenguajeJCR
         List<String> lstErrores = new List<string>();
         string tokens2 = "", tokensSem = "";
         MetodoConexion Mimetodo = new MetodoConexion();
+        int numeroError = 0;
+
         public frmLJCR()
         {
             InitializeComponent();
@@ -514,8 +516,58 @@ namespace Compilador_LenguajeJCR
 
         }
 
+        bool checkBalanceLLaves(string input)
+        {
+            int linea = 1;
+
+            Stack<char> stack = new Stack<char>();
+            for (int i = 0; i < input.Length; i++)
+            {
+
+                if (input[i] == '\n')
+                {
+                    linea++;
+                }
+
+                if (input[i] == '{' || input[i] == '(' || input[i] == '[')
+                {
+                    // push to stack
+                    stack.Push(input[i]);
+                }
+                else if (input[i] == '}' || input[i] == ')' || input[i] == ']')
+                {
+                    // pop from stack
+                    if (stack.Count == 0 || !isMatchingPair(stack.Pop(), input[i]))
+                    {
+                        numeroError = linea;
+                        return false;
+                    }
+                }
+            }
+            numeroError = linea;
+            return stack.Count == 0 ? true : false;
+        }
+        static bool isMatchingPair(char char1, char char2)
+        {
+            if (char1 == '(' && char2 == ')')
+                return true;
+            else if (char1 == '{' && char2 == '}')
+                return true;
+            else if (char1 == '[' && char2 == ']')
+                return true;
+            else
+                return false;
+        }
+
         private void btnSemantico_Click(object sender, EventArgs e)
         {
+
+            if (!checkBalanceLLaves(rtxCodigoFuente.Text))
+            {
+                //Falta ver como poder poner el conteo de los errores.
+                rtxErroresSemanticos.Text = "Hubo error en las llaves,parentesis o corchetes\n" + "Linea del error: " + numeroError;
+            }
+
             SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
             string tokaux = rtxTokens.Text;
             rtxTokens.Text = tokensSem;

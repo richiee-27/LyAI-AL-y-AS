@@ -36,6 +36,7 @@
             this.LineNumberTextBox = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSemantico = new System.Windows.Forms.Button();
             this.btnSintactico = new System.Windows.Forms.Button();
             this.btnTokens = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
@@ -47,8 +48,8 @@
             this.lblErrores = new System.Windows.Forms.Label();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
-            this.btnSemantico = new System.Windows.Forms.Button();
             this.rtxSemantico = new System.Windows.Forms.RichTextBox();
+            this.rtxErroresSemanticos = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -149,6 +150,16 @@
             this.panel1.Size = new System.Drawing.Size(1352, 33);
             this.panel1.TabIndex = 10;
             // 
+            // btnSemantico
+            // 
+            this.btnSemantico.Location = new System.Drawing.Point(1124, 4);
+            this.btnSemantico.Name = "btnSemantico";
+            this.btnSemantico.Size = new System.Drawing.Size(86, 25);
+            this.btnSemantico.TabIndex = 12;
+            this.btnSemantico.Text = "Semantico";
+            this.btnSemantico.UseVisualStyleBackColor = true;
+            this.btnSemantico.Click += new System.EventHandler(this.btnSemantico_Click);
+            // 
             // btnSintactico
             // 
             this.btnSintactico.Location = new System.Drawing.Point(812, 7);
@@ -191,6 +202,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.rtxErroresSemanticos);
             this.panel3.Controls.Add(this.lstSemantica);
             this.panel3.Controls.Add(this.btnSimbolos);
             this.panel3.Controls.Add(this.lblListaSim);
@@ -206,7 +218,7 @@
             // lstSemantica
             // 
             this.lstSemantica.FormattingEnabled = true;
-            this.lstSemantica.Location = new System.Drawing.Point(1014, 13);
+            this.lstSemantica.Location = new System.Drawing.Point(694, 34);
             this.lstSemantica.Name = "lstSemantica";
             this.lstSemantica.Size = new System.Drawing.Size(298, 82);
             this.lstSemantica.TabIndex = 11;
@@ -258,16 +270,6 @@
             this.rtxGramatica.TabIndex = 13;
             this.rtxGramatica.Text = "";
             // 
-            // btnSemantico
-            // 
-            this.btnSemantico.Location = new System.Drawing.Point(1124, 4);
-            this.btnSemantico.Name = "btnSemantico";
-            this.btnSemantico.Size = new System.Drawing.Size(86, 25);
-            this.btnSemantico.TabIndex = 12;
-            this.btnSemantico.Text = "Semantico";
-            this.btnSemantico.UseVisualStyleBackColor = true;
-            this.btnSemantico.Click += new System.EventHandler(this.btnSemantico_Click);
-            // 
             // rtxSemantico
             // 
             this.rtxSemantico.Location = new System.Drawing.Point(1014, 40);
@@ -275,6 +277,14 @@
             this.rtxSemantico.Size = new System.Drawing.Size(298, 384);
             this.rtxSemantico.TabIndex = 14;
             this.rtxSemantico.Text = "";
+            // 
+            // rtxErroresSemanticos
+            // 
+            this.rtxErroresSemanticos.Location = new System.Drawing.Point(1014, 34);
+            this.rtxErroresSemanticos.Name = "rtxErroresSemanticos";
+            this.rtxErroresSemanticos.Size = new System.Drawing.Size(298, 82);
+            this.rtxErroresSemanticos.TabIndex = 15;
+            this.rtxErroresSemanticos.Text = "";
             // 
             // frmLJCR
             // 
@@ -321,6 +331,7 @@
         private System.Windows.Forms.ListBox lstSemantica;
         private System.Windows.Forms.Button btnSemantico;
         private System.Windows.Forms.RichTextBox rtxSemantico;
+        private System.Windows.Forms.RichTextBox rtxErroresSemanticos;
     }
 }
 
