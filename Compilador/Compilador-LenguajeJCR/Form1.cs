@@ -113,12 +113,16 @@ namespace Compilador_LenguajeJCR
                     EDO = 0;
                     if (EDOAC != "")
                     {
-                        if (Simbolo.Contains("."))    // Pregunta si llega a ser constante, si es entera o flotante
+                       if(EDOAC == "CONS")
                         {
-                            EDOAC = "CONF";
-                        }
-                        else{
-                            EDOAC = "CONE";
+                            if (Simbolo.Contains("."))    // Pregunta si llega a ser constante, si es entera o flotante
+                            {
+                                EDOAC = "CONF";
+                            }
+                            else
+                            {
+                                EDOAC = "CONE";
+                            }
                         }
                         //string strTipo = "", strValor = "";
                         if (ArregloCodigo[i].ToString() == " ")
@@ -152,7 +156,7 @@ namespace Compilador_LenguajeJCR
                             else
                             {
                                 Simbolo = "";
-                                tokensSem = tokensSem + " ";
+                                tokensSem = tokensSem + EDOAC + " ";
                                 tokens2 = tokens2 + EDOAC + " ";
                                 Tokens = Tokens + EDOAC + " ";
                             }
@@ -505,6 +509,68 @@ namespace Compilador_LenguajeJCR
             miArhivo.AlmacenarSimbolos(rtxCodigoFuente, lsbSimbolos);
         }
 
+        private void frmLJCR_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSemantico_Click(object sender, EventArgs e)
+        {
+            SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+            string tokaux = rtxTokens.Text;
+            rtxTokens.Text = tokensSem;
+            int iteracion = 0;
+            rtxGramatica.Text = "";
+            string primeraCadena = "";
+            string segundaCadena = "";
+
+            for (int x = 0; x < rtxTokens.Lines.Count(); x++)
+            {
+                primeraCadena = rtxTokens.Lines[x];
+                segundaCadena = rtxTokens.Lines[x];
+                bool bandera = true;
+                iteracion = 0;
+                do
+                {
+                    MiConexion.Open();
+                    SqlDataReader myDtRd;
+                    SqlCommand myQuery = new SqlCommand("SELECT PRODUCCION, VALOR, LEN(VALOR) FROM SEMANTICO ORDER BY PRODUCCION DESC, LEN(VALOR) DESC", MiConexion);
+                    myDtRd = myQuery.ExecuteReader();
+
+
+                    while (myDtRd.Read())
+                    {
+                        iteracion++;
+                        if (primeraCadena.Length >= myDtRd.GetInt32(2))
+                        {
+                            if (primeraCadena.Replace(myDtRd.GetString(1), myDtRd.GetString(0)) != segundaCadena)
+                            {
+                                MessageBox.Show("Cadena Principal: " + primeraCadena + "\nSe cambio: " + myDtRd.GetString(1) + "\nPor: " + myDtRd.GetString(0));
+                                segundaCadena = primeraCadena.Replace(myDtRd.GetString(1), myDtRd.GetString(0));
+                                primeraCadena = segundaCadena;
+                                //MessageBox.Show(primeraCadena + "\n" + segundaCadena);
+                                rtxSemantico.Text += segundaCadena + "\n";
+                                break;
+                            }
+                        }
+                        if (iteracion > 1000) { /*rtxGramatica.Text += "Linea no aceptada" + "\n"; */bandera = false; break; }
+
+                    }
+                    MiConexion.Close();
+
+                    if (primeraCadena == "S" || primeraCadena == "S ")
+                    {
+                        bandera = false;
+                        //rtxtGramatica.Text += primeraCadena + "\n";
+                        //MessageBox.Show("ya hay una S, el recorrido termino");
+                    }
+
+                } while (bandera);
+                //MessageBox.Show("ya salio del dowhile");
+            }
+             rtxTokens.Text = tokaux;
+        }
+
         private void btnSintactico_Click(object sender, EventArgs e)
         {
             SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
@@ -570,6 +636,10 @@ namespace Compilador_LenguajeJCR
             rtxTokens.Text = "";
             lsbSimbolos.Items.Clear();
             lst.Clear();
+            rtxGramatica.Clear();
+            rtxSemantico.Clear();
+            tokensSem = "";
+            COID = 0;
         }
 
        // { }== LLCE [ ] ( ) ; :

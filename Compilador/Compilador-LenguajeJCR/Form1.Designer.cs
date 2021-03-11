@@ -41,12 +41,14 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lstSemantica = new System.Windows.Forms.ListBox();
             this.btnSimbolos = new System.Windows.Forms.Button();
             this.lblListaSim = new System.Windows.Forms.Label();
             this.lblErrores = new System.Windows.Forms.Label();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.btnSemantico = new System.Windows.Forms.Button();
+            this.rtxSemantico = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -60,7 +62,7 @@
             this.rtxCodigoFuente.ForeColor = System.Drawing.Color.Aqua;
             this.rtxCodigoFuente.Location = new System.Drawing.Point(69, 0);
             this.rtxCodigoFuente.Name = "rtxCodigoFuente";
-            this.rtxCodigoFuente.Size = new System.Drawing.Size(301, 384);
+            this.rtxCodigoFuente.Size = new System.Drawing.Size(283, 384);
             this.rtxCodigoFuente.TabIndex = 0;
             this.rtxCodigoFuente.Text = "";
             this.rtxCodigoFuente.SelectionChanged += new System.EventHandler(this.rtxCodigoFuente_SelectionChanged);
@@ -81,9 +83,9 @@
             // rtxTokens
             // 
             this.rtxTokens.Enabled = false;
-            this.rtxTokens.Location = new System.Drawing.Point(463, -3);
+            this.rtxTokens.Location = new System.Drawing.Point(376, 6);
             this.rtxTokens.Name = "rtxTokens";
-            this.rtxTokens.Size = new System.Drawing.Size(305, 385);
+            this.rtxTokens.Size = new System.Drawing.Size(283, 379);
             this.rtxTokens.TabIndex = 3;
             this.rtxTokens.Text = "";
             // 
@@ -103,7 +105,7 @@
             this.lsbSimbolos.FormattingEnabled = true;
             this.lsbSimbolos.Location = new System.Drawing.Point(376, 34);
             this.lsbSimbolos.Name = "lsbSimbolos";
-            this.lsbSimbolos.Size = new System.Drawing.Size(331, 82);
+            this.lsbSimbolos.Size = new System.Drawing.Size(305, 82);
             this.lsbSimbolos.TabIndex = 6;
             // 
             // LineNumberTextBox
@@ -134,6 +136,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(48)))), ((int)(((byte)(48)))));
+            this.panel1.Controls.Add(this.btnSemantico);
             this.panel1.Controls.Add(this.btnSintactico);
             this.panel1.Controls.Add(this.btnTokens);
             this.panel1.Controls.Add(this.btnLimpiar);
@@ -143,12 +146,12 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1116, 33);
+            this.panel1.Size = new System.Drawing.Size(1352, 33);
             this.panel1.TabIndex = 10;
             // 
             // btnSintactico
             // 
-            this.btnSintactico.Location = new System.Drawing.Point(939, 5);
+            this.btnSintactico.Location = new System.Drawing.Point(812, 7);
             this.btnSintactico.Name = "btnSintactico";
             this.btnSintactico.Size = new System.Drawing.Size(75, 23);
             this.btnSintactico.TabIndex = 12;
@@ -183,12 +186,12 @@
             this.panel2.Controls.Add(this.rtxCodigoFuente);
             this.panel2.Location = new System.Drawing.Point(0, 39);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(799, 385);
+            this.panel2.Size = new System.Drawing.Size(688, 385);
             this.panel2.TabIndex = 11;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.listBox1);
+            this.panel3.Controls.Add(this.lstSemantica);
             this.panel3.Controls.Add(this.btnSimbolos);
             this.panel3.Controls.Add(this.lblListaSim);
             this.panel3.Controls.Add(this.lblErrores);
@@ -197,12 +200,20 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 438);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1116, 128);
+            this.panel3.Size = new System.Drawing.Size(1352, 128);
             this.panel3.TabIndex = 12;
+            // 
+            // lstSemantica
+            // 
+            this.lstSemantica.FormattingEnabled = true;
+            this.lstSemantica.Location = new System.Drawing.Point(1014, 13);
+            this.lstSemantica.Name = "lstSemantica";
+            this.lstSemantica.Size = new System.Drawing.Size(298, 82);
+            this.lstSemantica.TabIndex = 11;
             // 
             // btnSimbolos
             // 
-            this.btnSimbolos.Location = new System.Drawing.Point(592, 6);
+            this.btnSimbolos.Location = new System.Drawing.Point(573, 2);
             this.btnSimbolos.Name = "btnSimbolos";
             this.btnSimbolos.Size = new System.Drawing.Size(115, 26);
             this.btnSimbolos.TabIndex = 10;
@@ -235,37 +246,49 @@
             this.rtxErrores.Enabled = false;
             this.rtxErrores.Location = new System.Drawing.Point(12, 35);
             this.rtxErrores.Name = "rtxErrores";
-            this.rtxErrores.Size = new System.Drawing.Size(351, 81);
+            this.rtxErrores.Size = new System.Drawing.Size(340, 81);
             this.rtxErrores.TabIndex = 7;
             this.rtxErrores.Text = "";
             // 
             // rtxGramatica
             // 
-            this.rtxGramatica.Location = new System.Drawing.Point(806, 40);
+            this.rtxGramatica.Location = new System.Drawing.Point(694, 40);
             this.rtxGramatica.Name = "rtxGramatica";
             this.rtxGramatica.Size = new System.Drawing.Size(298, 384);
             this.rtxGramatica.TabIndex = 13;
             this.rtxGramatica.Text = "";
             // 
-            // listBox1
+            // btnSemantico
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(713, 34);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(391, 82);
-            this.listBox1.TabIndex = 11;
+            this.btnSemantico.Location = new System.Drawing.Point(1124, 4);
+            this.btnSemantico.Name = "btnSemantico";
+            this.btnSemantico.Size = new System.Drawing.Size(86, 25);
+            this.btnSemantico.TabIndex = 12;
+            this.btnSemantico.Text = "Semantico";
+            this.btnSemantico.UseVisualStyleBackColor = true;
+            this.btnSemantico.Click += new System.EventHandler(this.btnSemantico_Click);
+            // 
+            // rtxSemantico
+            // 
+            this.rtxSemantico.Location = new System.Drawing.Point(1014, 40);
+            this.rtxSemantico.Name = "rtxSemantico";
+            this.rtxSemantico.Size = new System.Drawing.Size(298, 384);
+            this.rtxSemantico.TabIndex = 14;
+            this.rtxSemantico.Text = "";
             // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1116, 566);
+            this.ClientSize = new System.Drawing.Size(1352, 566);
+            this.Controls.Add(this.rtxSemantico);
             this.Controls.Add(this.rtxGramatica);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "frmLJCR";
             this.Text = "LENGUAJE JCR";
+            this.Load += new System.EventHandler(this.frmLJCR_Load);
             this.Resize += new System.EventHandler(this.frmLJCR_Resize);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -295,7 +318,9 @@
         private System.Windows.Forms.Button btnSimbolos;
         private System.Windows.Forms.RichTextBox rtxGramatica;
         private System.Windows.Forms.Button btnSintactico;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstSemantica;
+        private System.Windows.Forms.Button btnSemantico;
+        private System.Windows.Forms.RichTextBox rtxSemantico;
     }
 }
 
