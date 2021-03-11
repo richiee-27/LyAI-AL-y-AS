@@ -141,11 +141,12 @@ namespace Compilador_LenguajeJCR
                                 {
                                     strTipo = Simbolo;
                                 }
-                                
                             }
+
                             if (EDOAC == "IDEN")
                             {
                                 ID = GuardarSimbolo(Simbolo, strTipo, strValor); //ALMACENA SIMBOLO
+                                strTipo = "";
                                 tokens2 = tokens2 + EDOAC + " ";
                                 Tokens = Tokens + "ID" + ID + " ";
                                 foreach (clsSimbolo miSbl in lst)
@@ -562,13 +563,24 @@ namespace Compilador_LenguajeJCR
                 return false;
         }
 
+        public void VarDeclarada()
+        {
+            foreach(clsSimbolo ex in lst)
+            {
+                if(ex.TipoDeDato == "")
+                {
+                    rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "Variable No Declarada " + ex.Nombre ;
+                }
+            }
+        }
         private void btnSemantico_Click(object sender, EventArgs e)
         {
-
+            VarDeclarada();
             if (!checkBalanceLLaves(rtxCodigoFuente.Text))
             {
                 //Falta ver como poder poner el conteo de los errores.
-                rtxErroresSemanticos.Text = "Hubo error en las llaves,parentesis o corchetes\n" + "Linea del error: " + numeroError;
+                
+                rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "Hubo error en las llaves,parentesis o corchetes\n" + "Linea del error: " + numeroError;
             }
 
             SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
