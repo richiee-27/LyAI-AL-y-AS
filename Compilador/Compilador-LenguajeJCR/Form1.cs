@@ -621,12 +621,48 @@ namespace Compilador_LenguajeJCR
                 //MessageBox.Show("ya salio del dowhile");
             }
              rtxTokens.Text = tokaux;
+            ObtenerERRSEM();
+
+        }
+
+        public void ObtenerERRSEM()
+        {
+            try
+            {
+                SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+
+                for (int r = 0; r < rtxSemantico.Lines.Count(); r++)
+                {
+                    MessageBox.Show("AQUÍ INICIA", rtxSemantico.Lines[r].ToString());
+                    SqlCommand cmd = new SqlCommand();
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter sqlDA;
+                    MiConexion.Open();
+                    cmd.CommandText = "SELECT TIPO FROM ERRSEM WHERE ERROR = " + rtxSemantico.Lines[r].ToString();
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = MiConexion;
+                    sqlDA = new SqlDataAdapter(cmd);
+                    sqlDA.Fill(dt);
+                    MiConexion.Close();
+
+
+                    rtxErroresSemanticos.Text = dt.Rows[0]["TIPO"].ToString();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
         }
 
         private void btnSintactico_Click(object sender, EventArgs e)
         {
             SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
             string tokaux = rtxTokens.Text;
+            tokens2 = tokens2.Replace("CONE", "CONS");
+            tokens2 = tokens2.Replace("CONF", "CONS");
             rtxTokens.Text = tokens2;
             int iteracion = 0;
             rtxGramatica.Text = "";
@@ -677,7 +713,7 @@ namespace Compilador_LenguajeJCR
                 } while (bandera);
                 //MessageBox.Show("ya salio del dowhile");
             }
-            //rtxTokens.Text = tokaux;
+             rtxTokens.Text = tokaux;
 
         }
 

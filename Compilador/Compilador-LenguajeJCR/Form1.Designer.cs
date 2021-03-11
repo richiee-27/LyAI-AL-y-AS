@@ -42,14 +42,13 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.lstSemantica = new System.Windows.Forms.ListBox();
+            this.rtxErroresSemanticos = new System.Windows.Forms.RichTextBox();
             this.btnSimbolos = new System.Windows.Forms.Button();
             this.lblListaSim = new System.Windows.Forms.Label();
             this.lblErrores = new System.Windows.Forms.Label();
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
             this.rtxSemantico = new System.Windows.Forms.RichTextBox();
-            this.rtxErroresSemanticos = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -203,7 +202,6 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.rtxErroresSemanticos);
-            this.panel3.Controls.Add(this.lstSemantica);
             this.panel3.Controls.Add(this.btnSimbolos);
             this.panel3.Controls.Add(this.lblListaSim);
             this.panel3.Controls.Add(this.lblErrores);
@@ -215,13 +213,13 @@
             this.panel3.Size = new System.Drawing.Size(1352, 128);
             this.panel3.TabIndex = 12;
             // 
-            // lstSemantica
+            // rtxErroresSemanticos
             // 
-            this.lstSemantica.FormattingEnabled = true;
-            this.lstSemantica.Location = new System.Drawing.Point(694, 34);
-            this.lstSemantica.Name = "lstSemantica";
-            this.lstSemantica.Size = new System.Drawing.Size(298, 82);
-            this.lstSemantica.TabIndex = 11;
+            this.rtxErroresSemanticos.Location = new System.Drawing.Point(1014, 34);
+            this.rtxErroresSemanticos.Name = "rtxErroresSemanticos";
+            this.rtxErroresSemanticos.Size = new System.Drawing.Size(298, 82);
+            this.rtxErroresSemanticos.TabIndex = 15;
+            this.rtxErroresSemanticos.Text = "";
             // 
             // btnSimbolos
             // 
@@ -278,14 +276,6 @@
             this.rtxSemantico.TabIndex = 14;
             this.rtxSemantico.Text = "";
             // 
-            // rtxErroresSemanticos
-            // 
-            this.rtxErroresSemanticos.Location = new System.Drawing.Point(1014, 34);
-            this.rtxErroresSemanticos.Name = "rtxErroresSemanticos";
-            this.rtxErroresSemanticos.Size = new System.Drawing.Size(298, 82);
-            this.rtxErroresSemanticos.TabIndex = 15;
-            this.rtxErroresSemanticos.Text = "";
-            // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -328,7 +318,6 @@
         private System.Windows.Forms.Button btnSimbolos;
         private System.Windows.Forms.RichTextBox rtxGramatica;
         private System.Windows.Forms.Button btnSintactico;
-        private System.Windows.Forms.ListBox lstSemantica;
         private System.Windows.Forms.Button btnSemantico;
         private System.Windows.Forms.RichTextBox rtxSemantico;
         private System.Windows.Forms.RichTextBox rtxErroresSemanticos;
