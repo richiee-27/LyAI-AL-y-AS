@@ -215,9 +215,9 @@
             // 
             // rtxErroresSemanticos
             // 
-            this.rtxErroresSemanticos.Location = new System.Drawing.Point(1014, 34);
+            this.rtxErroresSemanticos.Location = new System.Drawing.Point(1014, 13);
             this.rtxErroresSemanticos.Name = "rtxErroresSemanticos";
-            this.rtxErroresSemanticos.Size = new System.Drawing.Size(298, 82);
+            this.rtxErroresSemanticos.Size = new System.Drawing.Size(298, 103);
             this.rtxErroresSemanticos.TabIndex = 15;
             this.rtxErroresSemanticos.Text = "";
             // 

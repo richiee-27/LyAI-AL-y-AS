@@ -18,6 +18,7 @@ namespace Compilador_LenguajeJCR
         string Errors = "";
         int Linea = 1, CantError = 0;
         List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
+        List<string> ErrorSeman = new List<string>();
         int COID = 0;
         int ID = 0;
         List<String> lstErrores = new List<string>();
@@ -28,6 +29,8 @@ namespace Compilador_LenguajeJCR
         public frmLJCR()
         {
             InitializeComponent();
+            ErrorSeman.Add("PR10 EXP2ASIG EXP3 DEIN");
+            ErrorSeman.Add("EXP2ASIG EXP4 DEIN");
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
@@ -624,38 +627,51 @@ namespace Compilador_LenguajeJCR
             ObtenerERRSEM();
 
         }
-
         public void ObtenerERRSEM()
         {
-            try
+            for(int x =0; x < rtxSemantico.Lines.Count(); x++)
             {
-                SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-
-                for (int r = 0; r < rtxSemantico.Lines.Count(); r++)
+                foreach (string er in ErrorSeman)
                 {
-                    MessageBox.Show("AQUÍ INICIA", rtxSemantico.Lines[r].ToString());
-                    SqlCommand cmd = new SqlCommand();
-                    DataTable dt = new DataTable();
-                    SqlDataAdapter sqlDA;
-                    MiConexion.Open();
-                    cmd.CommandText = "SELECT TIPO FROM ERRSEM WHERE ERROR = " + rtxSemantico.Lines[r].ToString();
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Connection = MiConexion;
-                    sqlDA = new SqlDataAdapter(cmd);
-                    sqlDA.Fill(dt);
-                    MiConexion.Close();
-
-
-                    rtxErroresSemanticos.Text = dt.Rows[0]["TIPO"].ToString();
+                    if(er == rtxSemantico.Lines[x])
+                    {
+                        rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "ERROR DE ASIGNACION";
+                    }
                 }
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-
         }
+
+        //public void ObtenerERRSEM()
+        //{
+        //    try
+        //    {
+        //        SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
+
+        //        for (int r = 0; r < rtxSemantico.Lines.Count(); r++)
+        //        {
+        //            MessageBox.Show("AQUÍ INICIA", rtxSemantico.Lines[r].ToString());
+        //            SqlCommand cmd = new SqlCommand();
+        //            DataTable dt = new DataTable();
+        //            SqlDataAdapter sqlDA;
+        //            MiConexion.Open();
+        //            cmd.CommandText = "SELECT TIPO FROM ERRSEM WHERE ERROR = " + rtxSemantico.Lines[r].ToString();
+        //            cmd.CommandType = CommandType.Text;
+        //            cmd.Connection = MiConexion;
+        //            sqlDA = new SqlDataAdapter(cmd);
+        //            sqlDA.Fill(dt);
+        //            MiConexion.Close();
+
+
+        //            rtxErroresSemanticos.Text = dt.Rows[0]["TIPO"].ToString();
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+
+
+        
 
         private void btnSintactico_Click(object sender, EventArgs e)
         {
