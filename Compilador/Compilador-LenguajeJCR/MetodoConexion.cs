@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Windows.Forms;
 
 namespace Compilador_LenguajeJCR
 {
@@ -87,6 +88,38 @@ namespace Compilador_LenguajeJCR
             else
                 return dt.Rows[0]["s" + miArreglo[indice].ToString()].ToString();
 
+        }
+
+        public string ErrorSem(string strSem)
+        {
+            string result = "";
+            SqlCommand cmd2 = new SqlCommand("SELECT TIPO FROM ERRSEM WHERE ERROR = '" + strSem + "'", cnn);
+            cmd.CommandType = CommandType.Text;
+            SqlDataReader reader;
+            cnn.Open();
+
+            try
+            {
+                reader = cmd2.ExecuteReader();
+                if (reader.Read())
+                {
+                    result = reader[0].ToString();
+                }
+                else
+                {
+                    result = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.ToString());
+            }
+            finally
+            {
+                cnn.Close();
+            }
+
+            return result;
         }
     }
 }

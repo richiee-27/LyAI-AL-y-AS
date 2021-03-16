@@ -18,19 +18,20 @@ namespace Compilador_LenguajeJCR
         string Errors = "";
         int Linea = 1, CantError = 0;
         List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
-        List<string> ErrorSeman = new List<string>();
+        //List<> ErrorSeman = new List<>();
         int COID = 0;
         int ID = 0;
         List<String> lstErrores = new List<string>();
         string tokens2 = "", tokensSem = "";
         MetodoConexion Mimetodo = new MetodoConexion();
         int numeroError = 0;
-
+        //List<ErroresSem> lstErrorSem = new List<ErroresSem>(); //Lista para almacenar para errores semanticos
+        //ErroresSem mierror;
         public frmLJCR()
         {
             InitializeComponent();
-            ErrorSeman.Add("PR10 EXP2ASIG EXP3 DEIN");
-            ErrorSeman.Add("EXP2ASIG EXP4 DEIN");
+            //ErrorSeman.Add("PR10 EXP2ASIG EXP3 DEIN");
+            //ErrorSeman.Add("EXP2ASIG EXP4 DEIN");
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
@@ -569,18 +570,22 @@ namespace Compilador_LenguajeJCR
             {
                 if(ex.TipoDeDato == "")
                 {
-                    rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "Variable No Declarada " + ex.Nombre ;
+                    rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "VARIABLE NO DECLARADA " + ex.Nombre ;
                 }
             }
         }
         private void btnSemantico_Click(object sender, EventArgs e)
         {
+            if (!(rtxTokens.Lines[0].Contains("PR17") && rtxTokens.Lines[rtxTokens.Lines.Count() - 1].Contains("PR13")))
+            {
+                rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "FALTA DE INICIO O FIN EN LA ESTRUCTURA" + "\n";
+            }
             VarDeclarada();
             if (!checkBalanceLLaves(rtxCodigoFuente.Text))
             {
                 //Falta ver como poder poner el conteo de los errores.
                 
-                rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "Hubo error en las llaves,parentesis o corchetes\n" + "Linea del error: " + numeroError;
+                rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "HUBO ERROR EN LAS LLAVES, PARENTESIS O CORCHETES\n" + "LINEA DEL ERROR: " + numeroError + "\n";
             }
 
             SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
@@ -635,55 +640,29 @@ namespace Compilador_LenguajeJCR
                 } while (bandera);
                 //MessageBox.Show("ya salio del dowhile");
             }
-             rtxTokens.Text = tokaux;
-            ObtenerERRSEM();
+
+            if (rtxTokens.Text.Contains("PR03"))
+            {
+                if (!(rtxTokens.Text.Contains("PR04") && rtxTokens.Text.Contains("PR26")))
+                {
+                    rtxErroresSemanticos.Text += "ESTRUCTURA CAMBIA INCOMPLETA" + "\n";
+                }
+            }
+            rtxTokens.Text = tokaux;
+             ObtenerERRSEM();
 
         }
         public void ObtenerERRSEM()
         {
-            for(int x =0; x < rtxSemantico.Lines.Count(); x++)
+
+            for (int x = 0; x < rtxSemantico.Lines.Count(); x++)
             {
-                foreach (string er in ErrorSeman)
+                if (Mimetodo.ErrorSem(rtxSemantico.Lines[x]) != "")
                 {
-                    if(er == rtxSemantico.Lines[x])
-                    {
-                        rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "ERROR DE ASIGNACION";
-                    }
+                    rtxErroresSemanticos.Text += Mimetodo.ErrorSem(rtxSemantico.Lines[x]) + "\n";
                 }
             }
         }
-
-        //public void ObtenerERRSEM()
-        //{
-        //    try
-        //    {
-        //        SqlConnection MiConexion = new SqlConnection("Data Source=PAVILION-PC;Initial Catalog=Compilador;User ID=sa;Password=pacheco2020");
-
-        //        for (int r = 0; r < rtxSemantico.Lines.Count(); r++)
-        //        {
-        //            MessageBox.Show("AQUÍ INICIA", rtxSemantico.Lines[r].ToString());
-        //            SqlCommand cmd = new SqlCommand();
-        //            DataTable dt = new DataTable();
-        //            SqlDataAdapter sqlDA;
-        //            MiConexion.Open();
-        //            cmd.CommandText = "SELECT TIPO FROM ERRSEM WHERE ERROR = " + rtxSemantico.Lines[r].ToString();
-        //            cmd.CommandType = CommandType.Text;
-        //            cmd.Connection = MiConexion;
-        //            sqlDA = new SqlDataAdapter(cmd);
-        //            sqlDA.Fill(dt);
-        //            MiConexion.Close();
-
-
-        //            rtxErroresSemanticos.Text = dt.Rows[0]["TIPO"].ToString();
-        //        }
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
-
-
-        
 
         private void btnSintactico_Click(object sender, EventArgs e)
         {
@@ -756,6 +735,7 @@ namespace Compilador_LenguajeJCR
             rtxSemantico.Clear();
             tokensSem = "";
             COID = 0;
+            rtxErroresSemanticos.Clear();
         }
 
        // { }== LLCE [ ] ( ) ; :

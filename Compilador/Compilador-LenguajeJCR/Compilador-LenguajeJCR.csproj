@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Archivos.cs" />
     <Compile Include="clsSimbolo.cs" />
+    <Compile Include="ErroresSem.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
