@@ -94,7 +94,7 @@ namespace Compilador_LenguajeJCR
         {
             string result = "";
             SqlCommand cmd2 = new SqlCommand("SELECT TIPO FROM ERRSEM WHERE ERROR = '" + strSem + "'", cnn);
-            cmd.CommandType = CommandType.Text;
+            cmd2.CommandType = CommandType.Text;
             SqlDataReader reader;
             cnn.Open();
 
