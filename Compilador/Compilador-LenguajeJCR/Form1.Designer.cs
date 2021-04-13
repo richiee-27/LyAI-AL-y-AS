@@ -49,6 +49,8 @@
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
             this.rtxSemantico = new System.Windows.Forms.RichTextBox();
+            this.btnPosfijo = new System.Windows.Forms.Button();
+            this.rtxPosfijo = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -201,6 +203,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.rtxPosfijo);
+            this.panel3.Controls.Add(this.btnPosfijo);
             this.panel3.Controls.Add(this.rtxErroresSemanticos);
             this.panel3.Controls.Add(this.btnSimbolos);
             this.panel3.Controls.Add(this.lblListaSim);
@@ -223,7 +227,7 @@
             // 
             // btnSimbolos
             // 
-            this.btnSimbolos.Location = new System.Drawing.Point(573, 2);
+            this.btnSimbolos.Location = new System.Drawing.Point(556, 5);
             this.btnSimbolos.Name = "btnSimbolos";
             this.btnSimbolos.Size = new System.Drawing.Size(115, 26);
             this.btnSimbolos.TabIndex = 10;
@@ -276,6 +280,24 @@
             this.rtxSemantico.TabIndex = 14;
             this.rtxSemantico.Text = "";
             // 
+            // btnPosfijo
+            // 
+            this.btnPosfijo.Location = new System.Drawing.Point(694, 7);
+            this.btnPosfijo.Name = "btnPosfijo";
+            this.btnPosfijo.Size = new System.Drawing.Size(75, 23);
+            this.btnPosfijo.TabIndex = 16;
+            this.btnPosfijo.Text = "Posfijo";
+            this.btnPosfijo.UseVisualStyleBackColor = true;
+            this.btnPosfijo.Click += new System.EventHandler(this.btnPosfijo_Click);
+            // 
+            // rtxPosfijo
+            // 
+            this.rtxPosfijo.Location = new System.Drawing.Point(693, 35);
+            this.rtxPosfijo.Name = "rtxPosfijo";
+            this.rtxPosfijo.Size = new System.Drawing.Size(315, 81);
+            this.rtxPosfijo.TabIndex = 17;
+            this.rtxPosfijo.Text = "";
+            // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -321,6 +343,8 @@
         private System.Windows.Forms.Button btnSemantico;
         private System.Windows.Forms.RichTextBox rtxSemantico;
         private System.Windows.Forms.RichTextBox rtxErroresSemanticos;
+        private System.Windows.Forms.RichTextBox rtxPosfijo;
+        private System.Windows.Forms.Button btnPosfijo;
     }
 }
 
