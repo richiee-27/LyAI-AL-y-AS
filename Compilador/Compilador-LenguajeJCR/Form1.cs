@@ -724,6 +724,11 @@ namespace Compilador_LenguajeJCR
 
         }
 
+        private void btnPosfijo_Click(object sender, EventArgs e)
+        {
+            posfijo();
+        }
+
         public void LimpiarDatos(){
             rtxCodigoFuente.Text = "";
             rtxErrores.Clear();
@@ -740,5 +745,60 @@ namespace Compilador_LenguajeJCR
 
        // { }== LLCE [ ] ( ) ; :
        // S LLCE
+       public void posfijo()
+        {
+            string[] operadores = { "OA01", "OA02", "OA03", "OA04", "OA05", "ASIG" };
+            string Opersave ="", CadenaSec ="", TokenEnLinea = "", Asignacion = "",Posfijo = "";
+            char[] arregloLinea;
+            for (int x = 0; x < rtxTokens.Lines.Count(); x++)
+            {
+                if (rtxTokens.Lines[x].Contains("ASIG"))
+                {
+                    arregloLinea = rtxTokens.Lines[x].ToCharArray();
+                    for (int i = 0; i < arregloLinea.Length; i++)
+                    {
+                        if(arregloLinea[i].ToString() != " ")
+                        {
+                            TokenEnLinea += arregloLinea[i].ToString();
+                        }
+                        else
+                        {
+                            if (operadores.Contains(TokenEnLinea))
+                            {
+                                if(TokenEnLinea == "ASIG")
+                                {
+                                    if(Asignacion == "")
+                                    {
+                                        Asignacion = "ASIG";
+                                        TokenEnLinea = "";
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("altiro hay dos iguales");
+                                    }
+                                }
+                                else
+                                {
+                                    Opersave = TokenEnLinea;
+                                    TokenEnLinea = "";
+                                }
+                            }
+                            else
+                            {
+                                CadenaSec += TokenEnLinea + " ";
+                                if(Opersave != "")
+                                {
+                                    CadenaSec += Opersave + " ";
+                                    Opersave = "";
+                                }
+                                TokenEnLinea = "";
+                            }
+                        }
+                    }
+                    Posfijo += CadenaSec + " " + Asignacion + "\n";
+                }
+            }
+            rtxPosfijo.Text = Posfijo;
+        }
     }
 }
