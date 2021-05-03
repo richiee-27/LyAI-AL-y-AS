@@ -797,7 +797,12 @@ namespace Compilador_LenguajeJCR
                     }
                     Posfijo += CadenaSec + " " + Asignacion + "\n";
                 }
+
+                Asignacion = "";
+                CadenaSec = "";
+                TokenEnLinea = "";
             }
+            
             rtxPosfijo.Text = Posfijo;
         }
     }
