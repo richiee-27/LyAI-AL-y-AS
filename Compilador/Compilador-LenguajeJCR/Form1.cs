@@ -836,6 +836,7 @@ namespace Compilador_LenguajeJCR
                                 if (y==0)
                                 {
                                     //Terminar tabla y rtxt de  ensamblador
+                                    llenarObjeto(cadenaAux2);
                                 }
                                 if (arregloLinea[y].ToString() != " ")
                                 {
@@ -850,6 +851,7 @@ namespace Compilador_LenguajeJCR
                                   
                                         //Llenar tabla y rtxt de ensamblador
                                         llenarObjeto(cadenaAux2);
+
                                     }
                                     
                                 }
@@ -867,7 +869,33 @@ namespace Compilador_LenguajeJCR
             Tupla miTupla = new Tupla();
             if (CadenaAux2.Contains("TE" + Temporal.ToString()))
             {
-                ///lkjlkajl
+                ///
+                int Saltos = 0;
+                ArregloAux2 = CadenaAux2.ToCharArray();
+                for (int i = 0; i < ArregloAux2.Length; i++)
+                {
+                    if (ArregloAux2[i].ToString() != " ")
+                    {
+                        switch (Saltos)
+                        {
+                            case 0:
+                                miTupla.DatoObjeto += ArregloAux2[i].ToString();
+                                break;
+                            case 1:
+                                miTupla.DatoFuente += ArregloAux2[i].ToString();
+                                break;
+                            case 2:
+                                miTupla.Operador += ArregloAux2[i].ToString();
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        Saltos++;
+                    }
+                   
+                }
+                listTuplas.Add(miTupla);
             }
             else
             {
@@ -883,6 +911,7 @@ namespace Compilador_LenguajeJCR
                     }
                     miTupla.DatoFuente = datFuente;
                     CadenaAux2.Replace(datFuente, "TE" + Temporal.ToString());
+                    listTuplas.Add(miTupla);
                     llenarObjeto(CadenaAux2);
                 }
             }
