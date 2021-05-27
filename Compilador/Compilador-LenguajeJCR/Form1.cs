@@ -15,8 +15,8 @@ namespace Compilador_LenguajeJCR
     public partial class frmLJCR : Form
     {
         Archivos miArhivo;
-        string Errors = "";
-        int Linea = 1, CantError = 0;
+        string Errors = "",CadAux2 ="";
+        int Linea = 1, CantError = 0, Temporal = 1;
         List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
         //List<> ErrorSeman = new List<>();
         int COID = 0;
@@ -27,6 +27,7 @@ namespace Compilador_LenguajeJCR
         int numeroError = 0;
         //List<ErroresSem> lstErrorSem = new List<ErroresSem>(); //Lista para almacenar para errores semanticos
         //ErroresSem mierror;
+        List<Tupla> listTuplas = new List<Tupla>();
         public frmLJCR()
         {
             InitializeComponent();
@@ -119,7 +120,7 @@ namespace Compilador_LenguajeJCR
                     EDO = 0;
                     if (EDOAC != "")
                     {
-                       if(EDOAC == "CONS")
+                        if (EDOAC == "CONS")
                         {
                             if (Simbolo.Contains("."))    // Pregunta si llega a ser constante, si es entera o flotante
                             {
@@ -134,9 +135,9 @@ namespace Compilador_LenguajeJCR
                         if (ArregloCodigo[i].ToString() == " ")
                         {
                             //Instrucción temporal para guardar el tipo de dato del identificador.
-                            string[] ArrSimb = { "PR02", "PR10", "PR14", "PR01", "PR05", "PR06"};
-                          
-                            for(int x = 0; x < ArrSimb.Length; x++)
+                            string[] ArrSimb = { "PR02", "PR10", "PR14", "PR01", "PR05", "PR06" };
+
+                            for (int x = 0; x < ArrSimb.Length; x++)
                             {
                                 if (EDOAC == ArrSimb[x])
                                 {
@@ -173,7 +174,7 @@ namespace Compilador_LenguajeJCR
 
                             if (EDOAC == "IDEN")
                             {
-                                ID = GuardarSimbolo(Simbolo,strTipo,strValor);  //ALMACENA SIMBOLO
+                                ID = GuardarSimbolo(Simbolo, strTipo, strValor);  //ALMACENA SIMBOLO
                                 tokens2 = tokens2 + EDOAC + "\n";
                                 Tokens = Tokens + "ID" + ID + "\n";
                                 foreach (clsSimbolo miSbl in lst)
@@ -239,12 +240,12 @@ namespace Compilador_LenguajeJCR
 
                     if (EDOAC == "IDEN")
                     {
-                        ID = GuardarSimbolo(Simbolo,strValor,strTipo);  //ALMACENA SIMBOLOS
+                        ID = GuardarSimbolo(Simbolo, strValor, strTipo);  //ALMACENA SIMBOLOS
                         tokens2 = tokens2 + EDOAC;
                         Tokens = Tokens + "ID" + ID;
-                        foreach(clsSimbolo miSbl in lst)
+                        foreach (clsSimbolo miSbl in lst)
                         {
-                            if(ID == miSbl.Numero)
+                            if (ID == miSbl.Numero)
                             {
                                 tokensSem = tokensSem + TipoDatoIDEN(miSbl.TipoDeDato);
                             }
@@ -566,11 +567,11 @@ namespace Compilador_LenguajeJCR
 
         public void VarDeclarada()
         {
-            foreach(clsSimbolo ex in lst)
+            foreach (clsSimbolo ex in lst)
             {
-                if(ex.TipoDeDato == "")
+                if (ex.TipoDeDato == "")
                 {
-                    rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "VARIABLE NO DECLARADA " + ex.Nombre ;
+                    rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "VARIABLE NO DECLARADA " + ex.Nombre;
                 }
             }
         }
@@ -584,7 +585,7 @@ namespace Compilador_LenguajeJCR
             if (!checkBalanceLLaves(rtxCodigoFuente.Text))
             {
                 //Falta ver como poder poner el conteo de los errores.
-                
+
                 rtxErroresSemanticos.Text = rtxErroresSemanticos.Text + "\n" + "HUBO ERROR EN LAS LLAVES, PARENTESIS O CORCHETES\n" + "LINEA DEL ERROR: " + numeroError + "\n";
             }
 
@@ -649,7 +650,7 @@ namespace Compilador_LenguajeJCR
                 }
             }
             rtxTokens.Text = tokaux;
-             ObtenerERRSEM();
+            ObtenerERRSEM();
 
         }
         public void ObtenerERRSEM()
@@ -720,7 +721,7 @@ namespace Compilador_LenguajeJCR
                 } while (bandera);
                 //MessageBox.Show("ya salio del dowhile");
             }
-             rtxTokens.Text = tokaux;
+            rtxTokens.Text = tokaux;
 
         }
 
@@ -729,7 +730,7 @@ namespace Compilador_LenguajeJCR
             posfijo();
         }
 
-        public void LimpiarDatos(){
+        public void LimpiarDatos() {
             rtxCodigoFuente.Text = "";
             rtxErrores.Clear();
             rtxErrores.Update();
@@ -743,12 +744,12 @@ namespace Compilador_LenguajeJCR
             rtxErroresSemanticos.Clear();
         }
 
-       // { }== LLCE [ ] ( ) ; :
-       // S LLCE
-       public void posfijo()
+        // { }== LLCE [ ] ( ) ; :
+        // S LLCE
+        public void posfijo()
         {
             string[] operadores = { "OA01", "OA02", "OA03", "OA04", "OA05", "ASIG" };
-            string Opersave ="", CadenaSec ="", TokenEnLinea = "", Asignacion = "",Posfijo = "";
+            string Opersave = "", CadenaSec = "", TokenEnLinea = "", Asignacion = "", Posfijo = "";
             char[] arregloLinea;
             for (int x = 0; x < rtxTokens.Lines.Count(); x++)
             {
@@ -757,7 +758,7 @@ namespace Compilador_LenguajeJCR
                     arregloLinea = rtxTokens.Lines[x].ToCharArray();
                     for (int i = 0; i < arregloLinea.Length; i++)
                     {
-                        if(arregloLinea[i].ToString() != " ")
+                        if (arregloLinea[i].ToString() != " ")
                         {
                             TokenEnLinea += arregloLinea[i].ToString();
                         }
@@ -765,9 +766,9 @@ namespace Compilador_LenguajeJCR
                         {
                             if (operadores.Contains(TokenEnLinea))
                             {
-                                if(TokenEnLinea == "ASIG")
+                                if (TokenEnLinea == "ASIG")
                                 {
-                                    if(Asignacion == "")
+                                    if (Asignacion == "")
                                     {
                                         Asignacion = "ASIG";
                                         TokenEnLinea = "";
@@ -786,7 +787,7 @@ namespace Compilador_LenguajeJCR
                             else
                             {
                                 CadenaSec += TokenEnLinea + " ";
-                                if(Opersave != "")
+                                if (Opersave != "")
                                 {
                                     CadenaSec += Opersave + " ";
                                     Opersave = "";
@@ -802,8 +803,89 @@ namespace Compilador_LenguajeJCR
                 CadenaSec = "";
                 TokenEnLinea = "";
             }
-            
+
             rtxPosfijo.Text = Posfijo;
         }
+
+        public void Tripleta()
+        {
+            if (rtxPosfijo.Text == "") { MessageBox.Show("No se ha realizado el postfijo"); }
+            string cadenaOriginal = "", cadenaAux = "", cadenaAux2 = "", TokenEnLinea = "";
+            string[] operadores = { "OA01", "OA02", "OA03", "OA04", "OA05", "ASIG" };
+            char[] arregloLinea;
+            for (int x = 0; x < rtxPosfijo.Lines.Count(); x++)
+            {
+                cadenaOriginal = rtxPosfijo.Lines[x];
+                arregloLinea = cadenaOriginal.ToCharArray();
+                for (int i = 0; i < arregloLinea.Length; i++)
+                {
+                    if (arregloLinea[i].ToString() != " ")
+                    {
+                        TokenEnLinea += arregloLinea[i].ToString();
+                    }
+                    else
+                    {
+                        cadenaAux = cadenaAux + TokenEnLinea + " ";
+                        if (operadores.Contains(TokenEnLinea))
+                        {
+                            char[] arregloLinea2;
+                            arregloLinea2 = cadenaAux.ToCharArray();
+                            int espacio = 0;
+                            for(int y = arregloLinea2.Length -1 ; y >= 0; y--)
+                            {
+                                if (y==0)
+                                {
+                                    //Terminar tabla y rtxt de  ensamblador
+                                }
+                                if (arregloLinea[y].ToString() != " ")
+                                {
+                                    TokenEnLinea = arregloLinea[y].ToString() + TokenEnLinea;
+                                }
+                                else
+                                {
+                                    cadenaAux2 = TokenEnLinea + cadenaAux2;
+                                    espacio++;
+                                    if(espacio == 3)
+                                    {
+                                  
+                                        //Llenar tabla y rtxt de ensamblador
+                                        llenarObjeto(cadenaAux2);
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    }
+                }
+                Temporal++;
+            }
+        }
+        public void llenarObjeto(String CadenaAux2)
+        {
+            char[] ArregloAux2;
+
+            Tupla miTupla = new Tupla();
+            if (CadenaAux2.Contains("TE" + Temporal.ToString()))
+            {
+                ///lkjlkajl
+            }
+            else
+            {
+                miTupla.DatoObjeto = "TE" + Temporal.ToString();
+                miTupla.Operador = "ASIG";
+                ArregloAux2 = CadenaAux2.ToCharArray();
+                string datFuente = "";
+                for (int i = 0; i < ArregloAux2.Length; i++)
+                {
+                    if (ArregloAux2[i].ToString() != " ")
+                    {
+                        datFuente += ArregloAux2[i].ToString();
+                    }
+                    miTupla.DatoFuente = datFuente;
+                    CadenaAux2.Replace(datFuente, "TE" + Temporal.ToString());
+                    llenarObjeto(CadenaAux2);
+                }
+            }
+        } 
     }
 }

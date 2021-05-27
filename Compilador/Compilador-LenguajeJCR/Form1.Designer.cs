@@ -42,6 +42,8 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.rtxPosfijo = new System.Windows.Forms.RichTextBox();
+            this.btnPosfijo = new System.Windows.Forms.Button();
             this.rtxErroresSemanticos = new System.Windows.Forms.RichTextBox();
             this.btnSimbolos = new System.Windows.Forms.Button();
             this.lblListaSim = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
             this.rtxSemantico = new System.Windows.Forms.RichTextBox();
-            this.btnPosfijo = new System.Windows.Forms.Button();
-            this.rtxPosfijo = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -148,7 +148,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1352, 33);
+            this.panel1.Size = new System.Drawing.Size(1336, 33);
             this.panel1.TabIndex = 10;
             // 
             // btnSemantico
@@ -214,8 +214,26 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 438);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1352, 128);
+            this.panel3.Size = new System.Drawing.Size(1336, 128);
             this.panel3.TabIndex = 12;
+            // 
+            // rtxPosfijo
+            // 
+            this.rtxPosfijo.Location = new System.Drawing.Point(693, 35);
+            this.rtxPosfijo.Name = "rtxPosfijo";
+            this.rtxPosfijo.Size = new System.Drawing.Size(315, 81);
+            this.rtxPosfijo.TabIndex = 17;
+            this.rtxPosfijo.Text = "";
+            // 
+            // btnPosfijo
+            // 
+            this.btnPosfijo.Location = new System.Drawing.Point(694, 7);
+            this.btnPosfijo.Name = "btnPosfijo";
+            this.btnPosfijo.Size = new System.Drawing.Size(75, 23);
+            this.btnPosfijo.TabIndex = 16;
+            this.btnPosfijo.Text = "Posfijo";
+            this.btnPosfijo.UseVisualStyleBackColor = true;
+            this.btnPosfijo.Click += new System.EventHandler(this.btnPosfijo_Click);
             // 
             // rtxErroresSemanticos
             // 
@@ -280,29 +298,11 @@
             this.rtxSemantico.TabIndex = 14;
             this.rtxSemantico.Text = "";
             // 
-            // btnPosfijo
-            // 
-            this.btnPosfijo.Location = new System.Drawing.Point(694, 7);
-            this.btnPosfijo.Name = "btnPosfijo";
-            this.btnPosfijo.Size = new System.Drawing.Size(75, 23);
-            this.btnPosfijo.TabIndex = 16;
-            this.btnPosfijo.Text = "Posfijo";
-            this.btnPosfijo.UseVisualStyleBackColor = true;
-            this.btnPosfijo.Click += new System.EventHandler(this.btnPosfijo_Click);
-            // 
-            // rtxPosfijo
-            // 
-            this.rtxPosfijo.Location = new System.Drawing.Point(693, 35);
-            this.rtxPosfijo.Name = "rtxPosfijo";
-            this.rtxPosfijo.Size = new System.Drawing.Size(315, 81);
-            this.rtxPosfijo.TabIndex = 17;
-            this.rtxPosfijo.Text = "";
-            // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1352, 566);
+            this.ClientSize = new System.Drawing.Size(1336, 566);
             this.Controls.Add(this.rtxSemantico);
             this.Controls.Add(this.rtxGramatica);
             this.Controls.Add(this.panel3);
