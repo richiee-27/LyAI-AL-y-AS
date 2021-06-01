@@ -996,18 +996,64 @@ namespace Compilador_LenguajeJCR
                 else
                 {
                     ContadorElementos++;
-                    if (CadAux2.Contains("TE" + Temporal.ToString()))
+                    if (!CadAux2.Contains("TE" + Temporal.ToString()))
                     {
+                        switch (ContadorElementos)
+                        {
+                            case 1:
+                                dtObj = "TE" + Temporal.ToString();
+                                dtFuente = TokenEnLinea;
+                                Operador = "ASIG";
+                                Tupla miTupla = new Tupla(dtObj, dtFuente, Operador);
+                                listTuplas.Add(miTupla);
+                                TokenEnLinea = "";
+                                dtFuente = "";
+                                dtObj = "";
+                                Operador = "";
 
+                                break;
+                            case 2:
+                                dtObj = "TE" + Temporal.ToString();
+                                dtFuente = TokenEnLinea;
+                                TokenEnLinea = "";
+
+
+                                break;
+                            case 3:
+                                
+                                Operador = TokenEnLinea;
+                                Tupla miTupla2 = new Tupla(dtObj, dtFuente, Operador);
+                                listTuplas.Add(miTupla2);
+                                CadAux.Replace(CadAux2,"TE"+Temporal.ToString());
+                                TokenEnLinea = "";
+                                dtFuente = "";
+                                dtObj = "";
+                                Operador = "";
+                                break;
+                        }
                     }
                     else
                     {
-                        dtObj = "TE" + Temporal.ToString();
-                        dtFuente = TokenEnLinea;
+                        switch (ContadorElementos)
+                        {
+                            case 1:
+                                dtObj = TokenEnLinea;
+                                TokenEnLinea = "";
+                                break;
+                            case 2:
+                                dtFuente = TokenEnLinea;
+
+                                break;
+                            case 3:
+                                break;
+                        }
                     }
+                
                 }
+            
             }
            
+        
         }
     
     }
