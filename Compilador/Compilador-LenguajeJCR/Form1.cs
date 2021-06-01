@@ -15,8 +15,9 @@ namespace Compilador_LenguajeJCR
     public partial class frmLJCR : Form
     {
         Archivos miArhivo;
-        string Errors = "",CadAux2 ="";
+        string Errors = "",CadAux2 ="", CadAux ="";
         int Linea = 1, CantError = 0, Temporal = 1;
+        string[] operadores = { "OA01", "OA02", "OA03", "OA04", "OA05", "ASIG" };
         List<clsSimbolo> lst = new List<clsSimbolo>(); //Lista para almacenar los identificadores
         //List<> ErrorSeman = new List<>();
         int COID = 0;
@@ -748,7 +749,7 @@ namespace Compilador_LenguajeJCR
         // S LLCE
         public void posfijo()
         {
-            string[] operadores = { "OA01", "OA02", "OA03", "OA04", "OA05", "ASIG" };
+           
             string Opersave = "", CadenaSec = "", TokenEnLinea = "", Asignacion = "", Posfijo = "";
             char[] arregloLinea;
             for (int x = 0; x < rtxTokens.Lines.Count(); x++)
@@ -807,7 +808,7 @@ namespace Compilador_LenguajeJCR
             rtxPosfijo.Text = Posfijo;
         }
 
-        public void Tripleta()
+       /* public void Tripleta()
         {
             if (rtxPosfijo.Text == "") { MessageBox.Show("No se ha realizado el postfijo"); }
             string cadenaOriginal = "", cadenaAux = "", cadenaAux2 = "", TokenEnLinea = "";
@@ -831,7 +832,7 @@ namespace Compilador_LenguajeJCR
                             char[] arregloLinea2;
                             arregloLinea2 = cadenaAux.ToCharArray();
                             int espacio = 0;
-                            for(int y = arregloLinea2.Length -1 ; y >= 0; y--)
+                            for(int y = arregloLinea2.Length -1 ; y >= 0; y--) buscar los dos operandos previos
                             {
                                 if (y==0)
                                 {
@@ -914,9 +915,100 @@ namespace Compilador_LenguajeJCR
                     listTuplas.Add(miTupla);
                     llenarObjeto(CadenaAux2);
                 }
+            }*/
+        public void PasoUnoTripleta()
+        {
+            //Lo toma de la cadena original 
+            //a su vez la cadena original es la linea de operacion aritmetica en postfijo
+            // ---------- aqui regresa del paso tres -----------
+            //Primero toma todos los tokens hasta encontrar un operador
+            //despues de eso lo guarda en una variable llamada cadena auxiliar y esta se manda al paso 2
+            string CadenaOriginal,TokenEnLinea = "";
+            char[] arregloLinea;
+            for (int x = 0; x < rtxPosfijo.Lines.Count(); x++)
+            {
+                CadenaOriginal = rtxPosfijo.Lines[x];
+                arregloLinea = CadenaOriginal.ToCharArray();
+                for (int i = 0; i < arregloLinea.Length; i++)
+                {
+                    if (arregloLinea[i].ToString() != " ")
+                    {
+                        TokenEnLinea += arregloLinea[i].ToString();
+                    }
+                    else
+                    {
+                       CadAux = CadAux + TokenEnLinea + " ";
+                        if (operadores.Contains(TokenEnLinea))
+                        {
+                            PasoDosTripleta();
+                        }
+                    }
+                }
             }
-        } 
+        }
+        public void PasoDosTripleta()
+        {
+            //Aqui lo que contiene la cadena auxiliar se analizara a la inversa
+            //ya que tenemos que encontrar los dos operandos previos
+            //despues de encontrarlos se guardara en una variable llamada cadena auxiliar 2
+            //esta a su vez se usa en el paso tres
+            int operador = 0;
+            string TokenEnLinea = "";
+            char[] arregloLinea;
+            arregloLinea = CadAux.ToCharArray();
+            for (int i = arregloLinea.Length - 1; i >= 0; i--) // empezamos a buscar los dos operandos previos
+            {
+                if (arregloLinea[i].ToString() != " ")
+                {
+                    TokenEnLinea = arregloLinea[i].ToString() + TokenEnLinea;
+                }
+                else
+                {
+                    operador++;
+                    if (operador <= 3)
+                    {
+                        CadAux2 = TokenEnLinea + " " + CadAux2;
 
-        
+                    }
+                    else
+                    {
+                        PasoTresTripleta();
+                    }
+                }
+            }
+        }
+
+        public void PasoTresTripleta()
+        {
+            //una vez teniendo la variable cadena auxiliar 2 comenzaremos a llenar la tabla
+            //aqui mismo se sustituira lo que contenga cadena auxiliar 2 por TENN y se realizara el cambio en 
+            //la variable cadena auxiliar y volvera al paso 1
+            string dtObj = "", dtFuente = "", Operador = "", TokenEnLinea ="";
+            int ContadorElementos = 0;
+            char[] arregloLinea;
+            arregloLinea = CadAux2.ToCharArray();
+            for (int i = 0; i < arregloLinea.Length; i++)
+            {
+                if (arregloLinea[i].ToString() != " ")
+                {
+                    TokenEnLinea += arregloLinea[i].ToString();
+                }
+                else
+                {
+                    ContadorElementos++;
+                    if (CadAux2.Contains("TE" + Temporal.ToString()))
+                    {
+
+                    }
+                    else
+                    {
+                        dtObj = "TE" + Temporal.ToString();
+                        dtFuente = TokenEnLinea;
+                    }
+                }
+            }
+           
+        }
+    
     }
 }
