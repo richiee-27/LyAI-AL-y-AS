@@ -955,6 +955,7 @@ namespace Compilador_LenguajeJCR
             for (int x = 0; x < rtxPosfijo.Lines.Count(); x++)
             {
                 CadenaOriginal = rtxPosfijo.Lines[x];
+                MessageBox.Show(CadenaOriginal);
                 arregloLinea = CadenaOriginal.ToCharArray();
                 for (int i = 0; i < arregloLinea.Length; i++)
                 {
@@ -964,11 +965,14 @@ namespace Compilador_LenguajeJCR
                     }
                     else
                     {
-                       CadAux = CadAux + TokenEnLinea + " ";
+                       //MessageBox.Show(TokenEnLinea);
+                       CadAux = CadAux + " " + TokenEnLinea + " ";
                         if (operadores.Contains(TokenEnLinea))
                         {
                             PasoDosTripleta();
                         }
+
+                        TokenEnLinea = "";
                     }
                 }
                 Temporal++;
@@ -982,6 +986,7 @@ namespace Compilador_LenguajeJCR
             //ya que tenemos que encontrar los dos operandos previos
             //despues de encontrarlos se guardara en una variable llamada cadena auxiliar 2
             //esta a su vez se usa en el paso tres
+            //MessageBox.Show(CadAux);
             int operador = 0;
             string TokenEnLinea = "";
             char[] arregloLinea;
@@ -1002,6 +1007,7 @@ namespace Compilador_LenguajeJCR
                     }
                     else
                     {
+                        MessageBox.Show(CadAux2);
                         PasoTresTripleta();
                     }
                 }

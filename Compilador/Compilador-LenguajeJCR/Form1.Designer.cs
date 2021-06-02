@@ -42,6 +42,7 @@
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.rtxPosfijo = new System.Windows.Forms.RichTextBox();
             this.btnPosfijo = new System.Windows.Forms.Button();
             this.rtxErroresSemanticos = new System.Windows.Forms.RichTextBox();
@@ -51,7 +52,6 @@
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
             this.rtxSemantico = new System.Windows.Forms.RichTextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.dgTripletas = new System.Windows.Forms.DataGridView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
@@ -221,6 +221,16 @@
             this.panel3.Size = new System.Drawing.Size(1336, 128);
             this.panel3.TabIndex = 12;
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(783, 7);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "Tripletas";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // rtxPosfijo
             // 
             this.rtxPosfijo.Location = new System.Drawing.Point(693, 35);
@@ -302,22 +312,13 @@
             this.rtxSemantico.TabIndex = 14;
             this.rtxSemantico.Text = "";
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(783, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Tripletas";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // dgTripletas
             // 
+            this.dgTripletas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgTripletas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgTripletas.Location = new System.Drawing.Point(12, 572);
+            this.dgTripletas.Location = new System.Drawing.Point(4, 572);
             this.dgTripletas.Name = "dgTripletas";
-            this.dgTripletas.Size = new System.Drawing.Size(419, 245);
+            this.dgTripletas.Size = new System.Drawing.Size(438, 175);
             this.dgTripletas.TabIndex = 15;
             this.dgTripletas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgTripletas_CellContentClick);
             // 
@@ -325,7 +326,7 @@
             // 
             this.richTextBox1.Location = new System.Drawing.Point(448, 572);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(257, 245);
+            this.richTextBox1.Size = new System.Drawing.Size(240, 175);
             this.richTextBox1.TabIndex = 16;
             this.richTextBox1.Text = "";
             // 
@@ -333,7 +334,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1336, 829);
+            this.ClientSize = new System.Drawing.Size(1336, 749);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.dgTripletas);
             this.Controls.Add(this.rtxSemantico);
