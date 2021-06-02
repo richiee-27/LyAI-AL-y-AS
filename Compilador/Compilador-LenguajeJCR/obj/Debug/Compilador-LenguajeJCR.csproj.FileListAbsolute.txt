@@ -17,3 +17,4 @@ C:\Users\DELL\Documents\GitHub\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\ob
 C:\Users\DELL\Documents\GitHub\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\bin\Debug\Compilador-LenguajeJCR.exe.config
 C:\Users\DELL\Documents\GitHub\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\bin\Debug\Compilador-LenguajeJCR.exe
 C:\Users\DELL\Documents\GitHub\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\bin\Debug\Compilador-LenguajeJCR.pdb
+D:\LyAI-AL-y-AS\Compilador\Compilador-LenguajeJCR\obj\Debug\Compilador_LenguajeJCR.Form2.resources
