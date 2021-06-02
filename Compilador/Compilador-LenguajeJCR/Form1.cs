@@ -520,7 +520,13 @@ namespace Compilador_LenguajeJCR
 
         private void frmLJCR_Load(object sender, EventArgs e)
         {
-
+            dgTripletas.Columns.Add("Dato Objeto", "Dato Objeto");
+            dgTripletas.Columns.Add("Dato Fuente", "Dato Fuente");
+            dgTripletas.Columns.Add("Operador", "Operador");
+            dgTripletas.ReadOnly = true;
+            dgTripletas.AllowUserToAddRows = false;
+            dgTripletas.AllowUserToDeleteRows = false;
+            dgTripletas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         bool checkBalanceLLaves(string input)
@@ -731,6 +737,25 @@ namespace Compilador_LenguajeJCR
             posfijo();
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            PasoUnoTripleta();
+            DesplegarDatos();
+            
+        }
+        public void DesplegarDatos()
+        {
+            foreach (Tupla miTupla in listTuplas)
+            {
+                dgTripletas.Rows.Add(miTupla.DatoObjeto, miTupla.DatoFuente, miTupla.Operador);
+            }
+        }
+
+        private void dgTripletas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         public void LimpiarDatos() {
             rtxCodigoFuente.Text = "";
             rtxErrores.Clear();
@@ -925,6 +950,8 @@ namespace Compilador_LenguajeJCR
             //despues de eso lo guarda en una variable llamada cadena auxiliar y esta se manda al paso 2
             string CadenaOriginal,TokenEnLinea = "";
             char[] arregloLinea;
+            CadenaOriginal = "";
+            CadAux = "";
             for (int x = 0; x < rtxPosfijo.Lines.Count(); x++)
             {
                 CadenaOriginal = rtxPosfijo.Lines[x];
@@ -944,7 +971,10 @@ namespace Compilador_LenguajeJCR
                         }
                     }
                 }
+                Temporal++;
             }
+
+            
         }
         public void PasoDosTripleta()
         {
@@ -1042,9 +1072,14 @@ namespace Compilador_LenguajeJCR
                                 break;
                             case 2:
                                 dtFuente = TokenEnLinea;
-
+                                TokenEnLinea = "";
                                 break;
                             case 3:
+                                Operador = TokenEnLinea;
+                                Tupla miTupla2 = new Tupla(dtObj, dtFuente, Operador);
+                                listTuplas.Add(miTupla2);
+                                CadAux.Replace(CadAux2, "TE" + Temporal.ToString());
+                                TokenEnLinea = "";
                                 break;
                         }
                     }
