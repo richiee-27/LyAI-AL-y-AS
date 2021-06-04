@@ -966,7 +966,8 @@ namespace Compilador_LenguajeJCR
                     else
                     {
                        //MessageBox.Show(TokenEnLinea);
-                       CadAux = CadAux + " " + TokenEnLinea + " ";
+                       CadAux = CadAux + TokenEnLinea + " ";
+                        MessageBox.Show(CadAux, "CADENA AUXILIAR");
                         if (operadores.Contains(TokenEnLinea))
                         {
                             PasoDosTripleta();
@@ -989,8 +990,10 @@ namespace Compilador_LenguajeJCR
             //MessageBox.Show(CadAux);
             int operador = 0;
             string TokenEnLinea = "";
+            CadAux.Substring(0,CadAux.Length - 2);
             char[] arregloLinea;
             arregloLinea = CadAux.ToCharArray();
+            MessageBox.Show(arregloLinea.Length.ToString(), "TAMAÑO CADENA AUX");
             for (int i = arregloLinea.Length - 1; i >= 0; i--) // empezamos a buscar los dos operandos previos
             {
                 if (arregloLinea[i].ToString() != " ")
@@ -1000,7 +1003,7 @@ namespace Compilador_LenguajeJCR
                 else
                 {
                     operador++;
-                    if (operador <= 3)
+                    if (operador <= 4)
                     {
                         if(operador == 1)
                         {
@@ -1015,9 +1018,10 @@ namespace Compilador_LenguajeJCR
                     }
                     else
                     {
-                        MessageBox.Show(CadAux2);
-                        PasoTresTripleta();
+                        MessageBox.Show(CadAux2,"CADENA AUXILIAR 2");
+                        PasoTresTripleta(); //ID1 OA01
                     }
+                    TokenEnLinea = "";
                 }
             }
         }
