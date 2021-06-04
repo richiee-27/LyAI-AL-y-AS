@@ -1002,7 +1002,15 @@ namespace Compilador_LenguajeJCR
                     operador++;
                     if (operador <= 3)
                     {
-                        CadAux2 = TokenEnLinea + " " + CadAux2;
+                        if(operador == 1)
+                        {
+                            CadAux2 = TokenEnLinea;
+                        }
+                        else 
+                        {
+                            CadAux2 = TokenEnLinea + " " + CadAux2;
+                        }
+                        
 
                     }
                     else
@@ -1022,16 +1030,16 @@ namespace Compilador_LenguajeJCR
             string dtObj = "", dtFuente = "", Operador = "", TokenEnLinea ="";
             int ContadorElementos = 0;
             char[] arregloLinea;
-            arregloLinea = CadAux2.ToCharArray();
+            arregloLinea = CadAux2.ToCharArray(); // "id02"+" "+"id03"+" "+"OA01_"
             for (int i = 0; i < arregloLinea.Length; i++)
             {
                 if (arregloLinea[i].ToString() != " ")
                 {
                     TokenEnLinea += arregloLinea[i].ToString();
-                }
+                }   //OA01
                 else
                 {
-                    ContadorElementos++;
+                    ContadorElementos++;//3
                     if (!CadAux2.Contains("TE" + Temporal.ToString()))
                     {
                         switch (ContadorElementos)
@@ -1050,15 +1058,15 @@ namespace Compilador_LenguajeJCR
                                 break;
                             case 2:
                                 dtObj = "TE" + Temporal.ToString();
-                                dtFuente = TokenEnLinea;
+                                dtFuente = TokenEnLinea; //id03
                                 TokenEnLinea = "";
 
 
                                 break;
                             case 3:
                                 
-                                Operador = TokenEnLinea;
-                                Tupla miTupla2 = new Tupla(dtObj, dtFuente, Operador);
+                                Operador = TokenEnLinea;  // = OA01
+                                Tupla miTupla2 = new Tupla(dtObj, dtFuente, Operador); // TE1, id03, OA01
                                 listTuplas.Add(miTupla2);
                                 CadAux.Replace(CadAux2,"TE"+Temporal.ToString());
                                 TokenEnLinea = "";
