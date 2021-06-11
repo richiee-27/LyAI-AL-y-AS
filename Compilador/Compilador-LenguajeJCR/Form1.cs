@@ -520,13 +520,7 @@ namespace Compilador_LenguajeJCR
 
         private void frmLJCR_Load(object sender, EventArgs e)
         {
-            dgTripletas.Columns.Add("Dato Objeto", "Dato Objeto");
-            dgTripletas.Columns.Add("Dato Fuente", "Dato Fuente");
-            dgTripletas.Columns.Add("Operador", "Operador");
-            dgTripletas.ReadOnly = true;
-            dgTripletas.AllowUserToAddRows = false;
-            dgTripletas.AllowUserToDeleteRows = false;
-            dgTripletas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
         }
 
         bool checkBalanceLLaves(string input)
@@ -739,19 +733,59 @@ namespace Compilador_LenguajeJCR
 
         private void button2_Click(object sender, EventArgs e)
         {
-            PasoUnoTripleta();
-            DesplegarDatos();
-            
+            string a = rtxCodigoFuente.Text;
+
+            if (a.Contains("Sum"))
+            {
+
+            }
+            if (a.Contains("Mul"))
+            {
+
+            }
+            if (a.Contains("Res"))
+            {
+
+            }
+            if (a.Contains("Div"))
+            {
+
+            }
+            if (a.Contains("Imprime"))
+            {
+
+            }
+            if (a.Contains("Si"))
+            {
+                if (a.Contains("Sino"))
+                {
+
+                }
+            }
+            if (a.Contains("Mientras"))
+            {
+
+            }
+            if (a.Contains("For"))
+            {
+
+            }
+
         }
-        public void DesplegarDatos()
+       /* public void DesplegarDatos()
         {
             foreach (Tupla miTupla in listTuplas)
             {
                 dgTripletas.Rows.Add(miTupla.DatoObjeto, miTupla.DatoFuente, miTupla.Operador);
             }
-        }
+        */
 
         private void dgTripletas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

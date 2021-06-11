@@ -52,12 +52,10 @@
             this.rtxErrores = new System.Windows.Forms.RichTextBox();
             this.rtxGramatica = new System.Windows.Forms.RichTextBox();
             this.rtxSemantico = new System.Windows.Forms.RichTextBox();
-            this.dgTripletas = new System.Windows.Forms.DataGridView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgTripletas)).BeginInit();
             this.SuspendLayout();
             // 
             // rtxCodigoFuente
@@ -207,7 +205,6 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.button2);
             this.panel3.Controls.Add(this.rtxPosfijo);
             this.panel3.Controls.Add(this.btnPosfijo);
             this.panel3.Controls.Add(this.rtxErroresSemanticos);
@@ -223,11 +220,11 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(783, 7);
+            this.button2.Location = new System.Drawing.Point(379, 641);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(98, 31);
             this.button2.TabIndex = 18;
-            this.button2.Text = "Tripletas";
+            this.button2.Text = "Ensamblador";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -312,31 +309,22 @@
             this.rtxSemantico.TabIndex = 14;
             this.rtxSemantico.Text = "";
             // 
-            // dgTripletas
-            // 
-            this.dgTripletas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgTripletas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgTripletas.Location = new System.Drawing.Point(4, 572);
-            this.dgTripletas.Name = "dgTripletas";
-            this.dgTripletas.Size = new System.Drawing.Size(438, 175);
-            this.dgTripletas.TabIndex = 15;
-            this.dgTripletas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgTripletas_CellContentClick);
-            // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(448, 572);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 572);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(240, 175);
+            this.richTextBox1.Size = new System.Drawing.Size(353, 175);
             this.richTextBox1.TabIndex = 16;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // frmLJCR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1336, 749);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.dgTripletas);
             this.Controls.Add(this.rtxSemantico);
             this.Controls.Add(this.rtxGramatica);
             this.Controls.Add(this.panel3);
@@ -350,7 +338,6 @@
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgTripletas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -381,7 +368,6 @@
         private System.Windows.Forms.RichTextBox rtxPosfijo;
         private System.Windows.Forms.Button btnPosfijo;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dgTripletas;
         private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

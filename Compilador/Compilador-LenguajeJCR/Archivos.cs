@@ -110,6 +110,24 @@ namespace Compilador_LenguajeJCR
                 escribir.Close();
             }
         }
+        public void ArchivoEnsambler(RichTextBox rtxCodigoFt,string ruta)
+        {
+
+            try
+            {
+                OpenFileDialog open = new OpenFileDialog();
+                open.FileName = ruta;
+                StreamReader read = new StreamReader(open.FileName);
+                rtxCodigoFt.Text = read.ReadToEnd();
+                read.Close();
+                
+
+            }
+            catch(Exception x)
+            {
+
+            }
+        }
     }
     
 }
